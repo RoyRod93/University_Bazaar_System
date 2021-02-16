@@ -3,7 +3,9 @@ package com.team8.universitybazaar.controller;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -42,11 +44,16 @@ public class LoginActivity extends AppCompatActivity {
 
             if (databaseHelper.checkValidUser(user)) {
 
+                SharedPreferences preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("isUserLogin", true);
+                editor.putString("userName", userName);
+                editor.apply();
+
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 i.putExtra("logged-user", databaseHelper.getDetails(userName));
                 startActivity(i);
-
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
             }

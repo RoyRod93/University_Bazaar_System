@@ -2,7 +2,9 @@ package com.team8.universitybazaar.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding activityMainBinding;
     User loggedInUser;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         databaseHelper = new DatabaseHelper(this);
-        loggedInUser = (User) getIntent().getSerializableExtra("logged-user");
+
+        if (getIntent() != null) {
+
+            if (getIntent().hasExtra("logged-user")) {
+                loggedInUser = (User) getIntent().getSerializableExtra("logged-user");
+            } else if (getIntent().hasExtra("userName")) {
+                userName = getIntent().getStringExtra("userName");
+                loggedInUser = databaseHelper.getDetails(userName);
+            }
+        } else {
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
+
 
         activityMainBinding.mainTextView.setText("Welcome, " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
     }
@@ -42,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logout) {
+            SharedPreferences preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("isUserLogin");
+            editor.remove("userName");
+            editor.apply();
+
             Intent i = new Intent(MainActivity.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
