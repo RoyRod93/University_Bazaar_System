@@ -45,13 +45,22 @@
         android:textColor="#FFF" />
 
     <TextView
+        android:id="@+id/tvForgotPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:text="Forgot Password?"
+        android:textSize="15sp"
+        android:textStyle="italic" />
+
+    <TextView
         android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:text="Not a user? Register here!"
-        android:textSize="15sp"
-        android:textStyle="italic" />
+        android:textSize="15sp" />
 
 </LinearLayout>
