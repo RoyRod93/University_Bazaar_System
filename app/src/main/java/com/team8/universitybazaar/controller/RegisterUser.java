@@ -1,6 +1,5 @@
 package com.team8.universitybazaar.controller;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -26,11 +25,10 @@ public class RegisterUser extends AppCompatActivity {
         View view = activityRegisterUserBinding.getRoot();
         setContentView(view);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
-        validations = new Validations();
-        databaseHelper = new DatabaseHelper(this);
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setTitle("Register");
 
         activityRegisterUserBinding.btnRegister.setOnClickListener(v -> {
 
@@ -96,6 +94,17 @@ public class RegisterUser extends AppCompatActivity {
             activityRegisterUserBinding.etZipCode.setError("Please enter a valid zip code");
             return false;
         }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
         return true;
     }
 }
