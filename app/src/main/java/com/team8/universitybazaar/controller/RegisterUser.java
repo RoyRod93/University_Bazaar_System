@@ -30,6 +30,8 @@ public class RegisterUser extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle("Register");
 
+        databaseHelper = new DatabaseHelper(this);
+
         activityRegisterUserBinding.btnRegister.setOnClickListener(v -> {
 
             final User user = new User();
