@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.team8.universitybazaar.dao.DatabaseHelper;
@@ -28,7 +29,7 @@ public class RegisterUser extends AppCompatActivity {
         androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("Register");
+        actionBar.setTitle("Register user");
 
         databaseHelper = new DatabaseHelper(this);
 
@@ -48,6 +49,8 @@ public class RegisterUser extends AppCompatActivity {
             user.setZipCode(activityRegisterUserBinding.etZipCode.getText().toString().trim());
 
             databaseHelper.addUser(user);
+
+            Log.e(getLocalClassName(), "RegisterBtn Pressed");
 
             Intent i = new Intent(RegisterUser.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
