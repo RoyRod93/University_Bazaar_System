@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.team8.universitybazaar.dao.DatabaseHelper;
 import com.team8.universitybazaar.databinding.ActivityRegisterUserBinding;
@@ -31,6 +32,7 @@ public class RegisterUser extends AppCompatActivity {
         actionBar.setTitle("Register");
 
         databaseHelper = new DatabaseHelper(this);
+        validations = new Validations();
 
         activityRegisterUserBinding.btnRegister.setOnClickListener(v -> {
 
@@ -47,11 +49,19 @@ public class RegisterUser extends AppCompatActivity {
             user.setState(activityRegisterUserBinding.etState.getText().toString().trim());
             user.setZipCode(activityRegisterUserBinding.etZipCode.getText().toString().trim());
 
-            databaseHelper.addUser(user);
+            if (isValid()) {
 
-            Intent i = new Intent(RegisterUser.this, LoginActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
+                try {
+                    databaseHelper.addUser(user);
+
+                    Intent i = new Intent(RegisterUser.this, LoginActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+
+                } catch (Exception e) {
+                    Toast.makeText(this, "Something went wrong! Try different username!", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
     }
 

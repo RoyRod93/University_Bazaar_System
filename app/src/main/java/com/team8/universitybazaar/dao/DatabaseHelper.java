@@ -35,8 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String createUserTable = "CREATE TABLE " + USERS_TABLE
-                + " ( " + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + USERNAME + " TEXT, "
+                + " ( " + USERNAME + " TEXT PRIMARY KEY, "
                 + PASSWORD + " TEXT, "
                 + FIRST_NAME + " TEXT, "
                 + LAST_NAME + " TEXT, "
@@ -118,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT " + USER_ID + " FROM " + USERS_TABLE + " WHERE " + USERNAME + "=? AND " + PASSWORD + "=?", new String[]{user.getUserName(), user.getPassword()});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT " + USERNAME + " FROM " + USERS_TABLE + " WHERE " + USERNAME + "=? AND " + PASSWORD + "=?", new String[]{user.getUserName(), user.getPassword()});
 
         if (cursor.getCount() > 0) {
 
