@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +14,8 @@ import com.team8.universitybazaar.misc.Validations;
 import com.team8.universitybazaar.model.User;
 
 public class RegisterUser extends AppCompatActivity {
+
+    private static final String TAG = RegisterUser.class.getSimpleName();
 
     private Validations validations;
     private DatabaseHelper databaseHelper;
@@ -38,6 +41,9 @@ public class RegisterUser extends AppCompatActivity {
 
             final User user = new User();
 
+            int random_int = (int)(Math.random() * (1000 - 100 + 1) + 100);
+
+            user.setUserId(activityRegisterUserBinding.etUsername.getText().toString().trim() + random_int);
             user.setUserName(activityRegisterUserBinding.etUsername.getText().toString().trim());
             user.setPassword(activityRegisterUserBinding.etPassword.getText().toString().trim());
             user.setFirstName(activityRegisterUserBinding.etFirstName.getText().toString().trim());
@@ -50,16 +56,15 @@ public class RegisterUser extends AppCompatActivity {
             user.setZipCode(activityRegisterUserBinding.etZipCode.getText().toString().trim());
 
             if (isValid()) {
-
-                try {
+                if (databaseHelper.ifExists(user)) {
+                    Toast.makeText(this, "Username already exists, change your username and try again...", Toast.LENGTH_SHORT).show();
+                } else if (databaseHelper.ifEmailExists(user)) {
+                    Toast.makeText(this, "Email already exists, change your email and try again...", Toast.LENGTH_SHORT).show();
+                } else {
                     databaseHelper.addUser(user);
-
                     Intent i = new Intent(RegisterUser.this, LoginActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
-
-                } catch (Exception e) {
-                    Toast.makeText(this, "Something went wrong! Try different username!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -99,10 +104,10 @@ public class RegisterUser extends AppCompatActivity {
         } else if (!validations.isValidEmail(activityRegisterUserBinding.etEmail)) {
             activityRegisterUserBinding.etEmail.setError("Please enter a valid email address");
             return false;
-        } else if (validations.isValidPhone(activityRegisterUserBinding.etPhone)) {
+        } else if (!validations.isValidPhone(activityRegisterUserBinding.etPhone)) {
             activityRegisterUserBinding.etPhone.setError("Please enter a valid phone number");
             return false;
-        } else if (validations.isValidPincode(activityRegisterUserBinding.etZipCode)) {
+        } else if (!validations.isValidPincode(activityRegisterUserBinding.etZipCode)) {
             activityRegisterUserBinding.etZipCode.setError("Please enter a valid zip code");
             return false;
         }

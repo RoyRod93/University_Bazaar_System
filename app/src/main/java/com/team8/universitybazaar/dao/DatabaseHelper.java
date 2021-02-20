@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.team8.universitybazaar.model.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final String TAG = DatabaseHelper.class.getSimpleName();
 
     private static final String DATABASE_NAME = "bazaar.db";
 
@@ -35,7 +38,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String createUserTable = "CREATE TABLE " + USERS_TABLE
-                + " ( " + USERNAME + " TEXT PRIMARY KEY, "
+                + " ( " + USER_ID + " TEXT, "
+                + USERNAME + " TEXT PRIMARY KEY, "
                 + PASSWORD + " TEXT, "
                 + FIRST_NAME + " TEXT, "
                 + LAST_NAME + " TEXT, "
@@ -45,6 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + CITY + " TEXT, "
                 + STATE + " TEXT, "
                 + ZIPCODE + " TEXT " + " ) ";
+
+        Log.i(TAG, "onCreate query " + createUserTable);
 
         db.execSQL(createUserTable);
     }
@@ -61,14 +67,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        long count = DatabaseUtils.queryNumEntries(db, USERS_TABLE);
+        /*long count = DatabaseUtils.queryNumEntries(db, USERS_TABLE);
 
         if (count == 0) {
 
             db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + USERS_TABLE + "'");
-        }
+        }*/
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put(USER_ID, user.getUserId());
         contentValues.put(USERNAME, user.getUserName());
         contentValues.put(PASSWORD, user.getPassword());
         contentValues.put(FIRST_NAME, user.getFirstName());
@@ -113,11 +120,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean ifExists(User user) {
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + "=?", new String[]{user.getUserName()});
+
+        if (cursor.getCount() > 0) {
+
+            cursor.close();
+            return true;
+        } else {
+
+            cursor.close();
+            return false;
+        }
+    }
+
+    public boolean ifEmailExists(User user) {
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " + EMAIL + "=?", new String[]{user.getEmail()});
+
+        if (cursor.getCount() > 0) {
+
+            cursor.close();
+            return true;
+        } else {
+
+            cursor.close();
+            return false;
+        }
+    }
+
     public boolean checkValidUser(User user) {
 
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT " + USERNAME + " FROM " + USERS_TABLE + " WHERE " + USERNAME + "=? AND " + PASSWORD + "=?", new String[]{user.getUserName(), user.getPassword()});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + "=? AND " + PASSWORD + "=?", new String[]{user.getUserName(), user.getPassword()});
 
         if (cursor.getCount() > 0) {
 
@@ -139,7 +180,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        User user = new User(cursor.getInt(cursor.getColumnIndex(USER_ID)),
+        User user = new User(cursor.getString(cursor.getColumnIndex(USER_ID)),
                 cursor.getString(cursor.getColumnIndex(USERNAME)),
                 cursor.getString(cursor.getColumnIndex(PASSWORD)),
                 cursor.getString(cursor.getColumnIndex(FIRST_NAME)),
