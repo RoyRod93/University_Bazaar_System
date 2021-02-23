@@ -17,11 +17,10 @@ import com.team8.universitybazaar.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseHelper databaseHelper;
-
     ActivityMainBinding activityMainBinding;
     User loggedInUser;
     String userName;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         activityMainBinding.btnViewProfile.setOnClickListener(v -> {
-
             Intent i = new Intent(MainActivity.this, ViewUserProfileActivity.class);
             i.putExtra("loggedUsernameKey", loggedInUser.getUserName());
             startActivity(i);

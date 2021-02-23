@@ -1,5 +1,6 @@
 package com.team8.universitybazaar.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -45,6 +46,14 @@ public class ViewUserProfileActivity extends AppCompatActivity {
         activityViewUserProfileBinding.tvCityDbVal.setText(loggedUser.getCity());
         activityViewUserProfileBinding.tvStateDbVal.setText(loggedUser.getState());
         activityViewUserProfileBinding.tvZipDbVal.setText(loggedUser.getZipCode());
+
+        activityViewUserProfileBinding.btnEditProfile.setOnClickListener(v -> {
+
+            Intent i = new Intent(ViewUserProfileActivity.this, EditUserProfileActivity.class);
+            i.putExtra("loggedUsernameKey", loggedUser.getUserName());
+            startActivity(i);
+
+        });
     }
 
     @Override
