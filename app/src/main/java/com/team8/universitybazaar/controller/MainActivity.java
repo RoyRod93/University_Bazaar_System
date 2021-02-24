@@ -1,7 +1,5 @@
 package com.team8.universitybazaar.controller;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.team8.universitybazaar.R;
 import com.team8.universitybazaar.dao.DatabaseHelper;
 import com.team8.universitybazaar.databinding.ActivityMainBinding;
@@ -17,11 +17,10 @@ import com.team8.universitybazaar.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseHelper databaseHelper;
-
     ActivityMainBinding activityMainBinding;
     User loggedInUser;
     String userName;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
+
+        activityMainBinding.btnViewProfile.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, ViewUserProfileActivity.class);
+            i.putExtra("loggedUsernameKey", loggedInUser.getUserName());
+            startActivity(i);
+        });
 
 
         activityMainBinding.mainTextView.setText("Welcome, " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
