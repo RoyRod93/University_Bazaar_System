@@ -196,4 +196,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return user;
     }
+
+
+    public boolean isValidUserName(String userName) {
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + " = '" + userName + "'", null);
+
+        if (cursor.getCount() == 1) {
+
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+
 }

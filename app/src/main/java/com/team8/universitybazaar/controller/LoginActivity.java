@@ -67,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         
         activityLoginBinding.tvForgotPwd.setOnClickListener(v -> {
 
-            Toast.makeText(this, "Clicked forgot password...", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+            startActivity(i);
         });
     }
 }
