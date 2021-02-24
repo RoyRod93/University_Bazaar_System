@@ -51,8 +51,28 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        activityMainBinding.btnSales.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, WipActivity.class);
+            startActivity(i);
+        });
 
-        activityMainBinding.mainTextView.setText("Welcome, " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
+        activityMainBinding.btnClubs.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, WipActivity.class);
+            startActivity(i);
+        });
+
+        activityMainBinding.btnExchange.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, WipActivity.class);
+            startActivity(i);
+        });
+
+        activityMainBinding.btnConfirmation.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, WipActivity.class);
+            startActivity(i);
+        });
+
+
+//        activityMainBinding.mainTextView.setText("Welcome, " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
     }
 
     @Override
