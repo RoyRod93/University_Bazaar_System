@@ -1,7 +1,9 @@
 package com.team8.universitybazaar.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +37,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
         loggedUser = databaseHelper.getDetails(username);
 
-        activityEditUserProfileBinding.etUsernameVal.setText(loggedUser.getUserName());
+        activityEditUserProfileBinding.tvUsernameVal.setText(loggedUser.getUserName());
         activityEditUserProfileBinding.etPasswordVal.setText(loggedUser.getPassword());
         activityEditUserProfileBinding.etFNameVal.setText(loggedUser.getFirstName());
         activityEditUserProfileBinding.etLNameVal.setText(loggedUser.getLastName());
@@ -48,8 +50,34 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
         activityEditUserProfileBinding.btnSaveProfile.setOnClickListener(v -> {
 
+            boolean updateUserProfileResult = updateUserProfile();
+
+            if (updateUserProfileResult) {
+                Toast.makeText(this, "Profile Saved to Database!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(EditUserProfileActivity.this, MainActivity.class);
+                i.putExtra("userName", loggedUser.getUserName());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+            } else {
+                Toast.makeText(this, "Profile Update Error !", Toast.LENGTH_SHORT).show();
+            }
         });
 
+    }
+
+    private boolean updateUserProfile() {
+        loggedUser.setPassword(activityEditUserProfileBinding.etPasswordVal.getText().toString());
+        loggedUser.setFirstName(activityEditUserProfileBinding.etFNameVal.getText().toString());
+        loggedUser.setLastName(activityEditUserProfileBinding.etLNameVal.getText().toString());
+        loggedUser.setPhone(activityEditUserProfileBinding.etPhoneVal.getText().toString());
+        loggedUser.setEmail(activityEditUserProfileBinding.etLEmailVal.getText().toString());
+        loggedUser.setStAddress(activityEditUserProfileBinding.etStreetVal.getText().toString());
+        loggedUser.setCity(activityEditUserProfileBinding.etCityVal.getText().toString());
+        loggedUser.setState(activityEditUserProfileBinding.etStateVal.getText().toString());
+        loggedUser.setZipCode(activityEditUserProfileBinding.etZipVal.getText().toString());
+
+        boolean result = databaseHelper.updateUser(loggedUser);
+        return result;
     }
 
     @Override
