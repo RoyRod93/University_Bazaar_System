@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -28,6 +29,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CITY = "CITY";
     private static final String STATE = "STATE";
     private static final String ZIPCODE = "ZIPCODE";
+
+    private static final String SALES_EXCHANGE_TABLE = "sales_exchange";
+    private static final String SALE_ID = "SALE_ID";
+    private static final String ITEM_NAME = "ITEM_NAME";
+    private static final String ITEM_DESCRIPTION = "ITEM_DESCRIPTION";
+    private static final String POST_DATE = "POST_DATE";
+    private static final String ITEM_CATEGORY = "ITEM_CATEGORY";
+    private static final String OFFER_TYPE = "OFFER_TYPE";
 
     public DatabaseHelper(Context context) {
 
@@ -50,15 +59,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + STATE + " TEXT, "
                 + ZIPCODE + " TEXT " + " ) ";
 
-        Log.i(TAG, "onCreate query " + createUserTable);
+        String createSalesTable = "CREATE TABLE " + SALES_EXCHANGE_TABLE
+                + " ( " + SALE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + USERNAME + " TEXT, "
+                + ITEM_NAME + " TEXT, "
+                + ITEM_DESCRIPTION + " TEXT, "
+                + POST_DATE + " TEXT, "
+                + ITEM_CATEGORY + " TEXT, "
+                + OFFER_TYPE + " TEXT, "
+                + " FOREIGN KEY ( " + USERNAME + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+
+        Log.i(TAG, "createSalesTable: " + createSalesTable);
 
         db.execSQL(createUserTable);
+        db.execSQL(createSalesTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SALES_EXCHANGE_TABLE);
 
         onCreate(db);
     }
@@ -214,5 +235,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void addListing(SaleItem item) {
 
+        SQLiteDatabase db = getWritableDatabase();
+
+        /*long count = DatabaseUtils.queryNumEntries(db, USERS_TABLE);
+
+        if (count == 0) {
+
+            db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + USERS_TABLE + "'");
+        }*/
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(USERNAME, item.getUserName());
+        contentValues.put(ITEM_NAME, item.getItemName());
+        contentValues.put(ITEM_DESCRIPTION, item.getItemDescription());
+        contentValues.put(POST_DATE, item.getPostDate());
+        contentValues.put(ITEM_CATEGORY, item.getItemCategory());
+        contentValues.put(OFFER_TYPE, item.getOfferType());
+
+        db.insert(SALES_EXCHANGE_TABLE, null, contentValues);
+        db.close();
+    }
 }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".controller.SalesExchangeForm">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/etItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_border"
+            android:hint="Item Name"
+            android:padding="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Select Item Type: " />
+
+        <RadioGroup
+            android:id="@+id/rgItemType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:checkedButton="@id/rbOther">
+
+            <RadioButton
+                android:id="@+id/rbElectronics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Electronics" />
+
+            <RadioButton
+                android:id="@+id/rbFurniture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Furniture" />
+
+            <RadioButton
+                android:id="@+id/rbStationary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stationary" />
+
+            <RadioButton
+                android:id="@+id/rbOther"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Other" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etItemDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edittext_border"
+            android:gravity="top"
+            android:hint="Item Description"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:padding="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Select Listing Type: " />
+
+        <RadioGroup
+            android:id="@+id/rgSalesExchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:checkedButton="@id/rbSellItem">
+
+            <RadioButton
+                android:id="@+id/rbSellItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sell" />
+
+            <RadioButton
+                android:id="@+id/rbExchangeItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exchange" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSaveItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Add Listing" />
+
+    </LinearLayout>
+
+</LinearLayout>

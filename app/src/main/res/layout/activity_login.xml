@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context=".controller.LoginActivity">
+    tools:context=".controller.LoginActivity"
+    android:background="@color/background">
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="125dp"
         android:hint="Username"
-        android:padding="15dp" />
+        android:padding="15dp"
+        android:background="@drawable/edittext_border"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -32,7 +34,8 @@
         android:layout_marginTop="15dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="15dp" />
+        android:padding="15dp"
+        android:background="@drawable/edittext_border"/>
 
     <Button
         android:id="@+id/btnLogin"

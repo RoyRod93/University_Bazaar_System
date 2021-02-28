@@ -9,7 +9,7 @@
     <string name="street">Street:</string>
     <string name="city">City:</string>
     <string name="state">State:</string>
-    <string name="zip">ZIP:</string>
+    <string name="zip">ZIP Code:</string>
     <string name="view_profile">View Profile</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="save_profile">Save Profile</string>

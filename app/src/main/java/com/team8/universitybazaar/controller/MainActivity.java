@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         View view = activityMainBinding.getRoot();
         setContentView(view);
 
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Home Page");
+
         databaseHelper = new DatabaseHelper(this);
 
         if (getIntent() != null) {
@@ -45,14 +48,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }
 
-        activityMainBinding.btnViewProfile.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, ViewUserProfileActivity.class);
-            i.putExtra("loggedUsernameKey", loggedInUser.getUserName());
-            startActivity(i);
-        });
-
-        activityMainBinding.btnSales.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, WipActivity.class);
+        activityMainBinding.btnSalesExchangeForm.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, SalesExchangeForm.class);
+            i.putExtra("loggedUser", loggedInUser);
             startActivity(i);
         });
 
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        activityMainBinding.btnExchange.setOnClickListener(v -> {
+        activityMainBinding.btnSalesExchange.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, WipActivity.class);
             startActivity(i);
         });
@@ -92,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
             Intent i = new Intent(MainActivity.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        } else if (item.getItemId() == R.id.viewProfile) {
+
+            Intent i = new Intent(MainActivity.this, ViewUserProfileActivity.class);
+            i.putExtra("loggedUsernameKey", loggedInUser.getUserName());
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
