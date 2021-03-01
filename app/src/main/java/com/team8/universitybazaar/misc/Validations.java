@@ -122,7 +122,7 @@ public class Validations {
      * @return
      */
     public boolean isValidPhone(EditText editText) {
-        return Pattern.compile("\\d{10}").matcher(editText.getText().toString().trim()).matches();
+        return ((editText.getText().toString().trim()).length()) == 10;
     }
 
     public boolean isValidPassword(EditText editText) {

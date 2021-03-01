@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,8 +52,8 @@ public class SalesExchangeForm extends AppCompatActivity {
             SaleItem newItem = new SaleItem();
 
             newItem.setUserName(loggedInUser.getUserName());
-            newItem.setItemName(activitySalesExchangeFormBinding.etItemName.toString().trim());
-            newItem.setItemDescription(activitySalesExchangeFormBinding.etItemDescription.toString().trim());
+            newItem.setItemName(activitySalesExchangeFormBinding.etItemName.getText().toString().trim());
+            newItem.setItemDescription(activitySalesExchangeFormBinding.etItemDescription.getText().toString().trim());
             newItem.setPostDate(Calendar.getInstance().getTime().toString());
 
             int selectedRadioButtonId = activitySalesExchangeFormBinding.rgItemType.getCheckedRadioButtonId();
@@ -79,12 +78,15 @@ public class SalesExchangeForm extends AppCompatActivity {
             
             if (isValid()) {
                 /*Write database insertion here.... call addListing method and pass the newItem object*/
-                Toast.makeText(this, "All data entered and validated...", Toast.LENGTH_SHORT).show();
+                databaseHelper.addListing(newItem);
+                Toast.makeText(this, "Listing added successfully...", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(SalesExchangeForm.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
             } else {
                 Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private boolean isValid() {
