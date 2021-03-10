@@ -17,6 +17,7 @@
         <activity android:name=".controller.EditUserProfileActivity" />
         <activity android:name=".controller.ForgetPasswordActivity" />
         <activity android:name=".controller.WipActivity" />
+        <activity android:name=".controller.ItemListActivity" />
         <activity android:name=".controller.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,6 +11,8 @@ import android.util.Log;
 import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.User;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();
@@ -179,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + "=? AND " + PASSWORD + "=?", new String[]{user.getUserName(), user.getPassword()});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE ,null);
 
         if (cursor.getCount() > 0) {
 
@@ -256,5 +258,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(SALES_EXCHANGE_TABLE, null, contentValues);
         db.close();
+    }
+
+    public ArrayList<SaleItem> getSaleItemList() {
+        ArrayList<SaleItem> saleItemArrayList = new ArrayList<SaleItem>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String qry = "select * from " + SALES_EXCHANGE_TABLE;
+        try {
+            Cursor c = sqLiteDatabase.rawQuery(qry, null);
+            if (c.getCount() == 0) {
+                return saleItemArrayList;
+            } else {
+                while (c.moveToNext()) {
+                    int saleId = Integer.parseInt(c.getString(c.getColumnIndex(SALE_ID)));
+                    String userName = c.getString(c.getColumnIndex(USERNAME));
+                    String itemName = c.getString(c.getColumnIndex(ITEM_NAME));
+                    String itemDescription = c.getString(c.getColumnIndex(ITEM_DESCRIPTION));
+                    String postDate = c.getString(c.getColumnIndex(POST_DATE));
+                    String itemCategory = c.getString(c.getColumnIndex(ITEM_CATEGORY));
+                    String offerType = c.getString(c.getColumnIndex(OFFER_TYPE));
+                    SaleItem saleItem = new SaleItem( saleId, userName,  itemName,  itemDescription,  postDate,  itemCategory, offerType);
+                    saleItemArrayList.add(saleItem);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return saleItemArrayList;
     }
 }

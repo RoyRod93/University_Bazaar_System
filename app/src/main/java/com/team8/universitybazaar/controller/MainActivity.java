@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         activityMainBinding.btnSalesExchange.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, WipActivity.class);
+            Intent i = new Intent(MainActivity.this, ItemListActivity.class);
             startActivity(i);
         });
 
