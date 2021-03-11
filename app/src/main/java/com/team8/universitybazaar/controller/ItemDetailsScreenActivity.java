@@ -48,9 +48,9 @@ public class ItemDetailsScreenActivity extends AppCompatActivity {
         activityItemDisplayPageBinding.itemCategoryDbVal.setText(saleItem.getItemCategory());
         activityItemDisplayPageBinding.itemOfferTypeDbVal.setText(saleItem.getOfferType());
 
-        if (saleItem.getItemCategory() == "Electronics") {
+        if (saleItem.getItemCategory().equalsIgnoreCase("ELECTRONICS")) {
             activityItemDisplayPageBinding.cartImage.setImageResource(R.drawable.electronics);
-        } else if (saleItem.getItemCategory() == "Furniture") {
+        } else if (saleItem.getItemCategory().equalsIgnoreCase("FURNITURE")) {
             activityItemDisplayPageBinding.cartImage.setImageResource(R.drawable.furniture);
         } else {
             activityItemDisplayPageBinding.cartImage.setImageResource(R.drawable.stationary);
