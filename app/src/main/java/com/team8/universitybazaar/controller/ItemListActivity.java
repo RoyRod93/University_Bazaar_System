@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +58,7 @@ public class ItemListActivity extends AppCompatActivity {
                 Intent i = new Intent(ItemListActivity.this, ItemDetailsScreenActivity.class);
                 i.putExtra("bazaar_sale_item", saleItemArrayList.get(position));
                 i.putExtra("loggedUser", loggedInUser);
+                Log.d("ItemListActivity", "Category: " + saleItemArrayList.get(position).getItemCategory());
                 startActivity(i);
 
             }

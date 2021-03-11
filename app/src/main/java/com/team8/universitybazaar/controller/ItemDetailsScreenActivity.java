@@ -9,10 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.team8.universitybazaar.R;
-import com.team8.universitybazaar.dao.DatabaseHelper;
 import com.team8.universitybazaar.databinding.ActivityItemDisplayPageBinding;
 import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.User;
@@ -21,9 +21,7 @@ public class ItemDetailsScreenActivity extends AppCompatActivity {
 
     ActivityItemDisplayPageBinding activityItemDisplayPageBinding;
     private User loggedInUser;
-    private DatabaseHelper databaseHelper;
     private SaleItem saleItem;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,16 +30,16 @@ public class ItemDetailsScreenActivity extends AppCompatActivity {
         View view = activityItemDisplayPageBinding.getRoot();
         setContentView(view);
 
-        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle("Item Details");
 
-        databaseHelper = new DatabaseHelper(this);
-
         loggedInUser = (User) getIntent().getSerializableExtra("loggedUser");
 
         saleItem = (SaleItem) getIntent().getSerializableExtra("bazaar_sale_item");
+
+        //final ImageView itemImg = activityItemDisplayPageBinding.cartImage;
 
         activityItemDisplayPageBinding.userNameDBval.setText(saleItem.getUserName());
         activityItemDisplayPageBinding.itemNameDbVal.setText(saleItem.getItemName());
@@ -49,6 +47,22 @@ public class ItemDetailsScreenActivity extends AppCompatActivity {
         activityItemDisplayPageBinding.postDateDbVal.setText(saleItem.getPostDate());
         activityItemDisplayPageBinding.itemCategoryDbVal.setText(saleItem.getItemCategory());
         activityItemDisplayPageBinding.itemOfferTypeDbVal.setText(saleItem.getOfferType());
+
+        if (saleItem.getItemCategory() == "Electronics") {
+            activityItemDisplayPageBinding.cartImage.setImageResource(R.drawable.electronics);
+        } else if (saleItem.getItemCategory() == "Furniture") {
+            activityItemDisplayPageBinding.cartImage.setImageResource(R.drawable.furniture);
+        } else {
+            activityItemDisplayPageBinding.cartImage.setImageResource(R.drawable.stationary);
+        }
+
+        //itemImg.setImageResource(R.drawable.electronics);
+
+        activityItemDisplayPageBinding.btnBuyExchange.setOnClickListener(v -> {
+            Intent i = new Intent(ItemDetailsScreenActivity.this, WipActivity.class);
+            startActivity(i);
+        });
+
 
     }
 
