@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         activityMainBinding.btnSalesExchange.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, ItemListActivity.class);
+            i.putExtra("loggedUser", loggedInUser);
             startActivity(i);
         });
 

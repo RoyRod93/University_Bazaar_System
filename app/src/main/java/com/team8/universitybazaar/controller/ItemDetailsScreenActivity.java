@@ -39,6 +39,8 @@ public class ItemDetailsScreenActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
+        loggedInUser = (User) getIntent().getSerializableExtra("loggedUser");
+
         saleItem = (SaleItem) getIntent().getSerializableExtra("bazaar_sale_item");
 
         activityItemDisplayPageBinding.userNameDBval.setText(saleItem.getUserName());
