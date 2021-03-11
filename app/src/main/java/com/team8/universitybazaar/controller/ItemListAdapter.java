@@ -1,13 +1,10 @@
 package com.team8.universitybazaar.controller;
 
 import android.content.Context;
-import android.renderscript.ScriptIntrinsicYuvToRGB;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.team8.universitybazaar.R;
@@ -18,7 +15,8 @@ import java.util.List;
 public class ItemListAdapter extends BaseAdapter {
     Context context;
     List<SaleItem> saleItemList;
-     public ItemListAdapter(Context context, List<SaleItem> saleItemList){
+
+    public ItemListAdapter(Context context, List<SaleItem> saleItemList){
          this.context = context;
          this.saleItemList = saleItemList;
      }

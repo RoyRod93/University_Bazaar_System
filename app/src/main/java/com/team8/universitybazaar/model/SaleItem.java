@@ -1,6 +1,8 @@
 package com.team8.universitybazaar.model;
 
-public class SaleItem {
+import java.io.Serializable;
+
+public class SaleItem implements Serializable {
 
     int saleId;
     String userName;

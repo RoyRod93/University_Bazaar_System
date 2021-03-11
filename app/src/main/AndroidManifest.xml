@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UniversityBazaar">
+        <activity android:name=".controller.ItemDetailsScreenActivity"></activity>
         <activity android:name=".controller.SalesExchangeForm"></activity>
         <activity android:name=".controller.RegisterUser" />
         <activity android:name=".controller.MainActivity" />

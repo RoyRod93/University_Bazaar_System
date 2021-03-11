@@ -80,7 +80,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/ItemDescriptionDbVal"
+            android:id="@+id/itemDescriptionDbVal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -155,7 +155,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/offerTypeDbVal"
+            android:id="@+id/itemOfferTypeDbVal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -178,7 +178,7 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:padding="15dp"
-            android:text="@string/edit_profile" />
+            android:text="@string/buy_item" />
 
         <Button
             android:id="@+id/btn"
@@ -188,7 +188,7 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:padding="15dp"
-            android:text="@string/edit_profile" />
+            android:text="@string/exchange" />
 
     </LinearLayout>
 

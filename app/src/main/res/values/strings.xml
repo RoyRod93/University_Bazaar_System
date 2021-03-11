@@ -13,4 +13,15 @@
     <string name="view_profile">View Profile</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="save_profile">Save Profile</string>
+
+    <string name="item_owner">Item Owner: </string>
+    <string name="item_name">Item Name: </string>
+    <string name="description">Description: </string>
+    <string name="post_date">Post Date: </string>
+    <string name="item_category">Category: </string>
+    <string name="offer_type">Offer Type: </string>
+    <string name="buy_item">Buy Item</string>
+    <string name="exchange">Exchange</string>
+
+
 </resources>
