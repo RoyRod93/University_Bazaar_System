@@ -26,7 +26,5 @@ public class WipActivity extends AppCompatActivity {
         actionBar.hide();
 
         databaseHelper = new DatabaseHelper(this);
-
-
     }
 }

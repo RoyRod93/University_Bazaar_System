@@ -62,8 +62,6 @@ public class ItemDetailsScreenActivity extends AppCompatActivity {
             Intent i = new Intent(ItemDetailsScreenActivity.this, WipActivity.class);
             startActivity(i);
         });
-
-
     }
 
     @Override

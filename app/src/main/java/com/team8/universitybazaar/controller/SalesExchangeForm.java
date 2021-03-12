@@ -45,7 +45,7 @@ public class SalesExchangeForm extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         validations = new Validations();
 
-        loggedInUser = (User) getIntent().getSerializableExtra("loggedUser");
+        loggedInUser = (User) getIntent().getSerializableExtra("logged-user");
 
         activitySalesExchangeFormBinding.btnSaveItem.setOnClickListener(v -> {
 
@@ -82,6 +82,7 @@ public class SalesExchangeForm extends AppCompatActivity {
                 Toast.makeText(this, "Listing added successfully...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SalesExchangeForm.this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.putExtra("logged-user", loggedInUser);
                 startActivity(i);
             } else {
                 Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();

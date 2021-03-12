@@ -1,69 +1,58 @@
 package com.team8.universitybazaar.controller;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.team8.universitybazaar.R;
 import com.team8.universitybazaar.dao.DatabaseHelper;
+import com.team8.universitybazaar.databinding.ActivitySalesItemRecyclerBinding;
 import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.User;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ItemListActivity extends AppCompatActivity {
+public class SalesItemRecycler extends AppCompatActivity {
 
-    ItemListAdapter itemListAdapter;
-    ArrayList<SaleItem> saleItemArrayList;
-    ListView lvItemList;
     private User loggedInUser;
     private DatabaseHelper databaseHelper;
+    private List<SaleItem> saleItemList;
+
+    ActivitySalesItemRecyclerBinding activitySalesItemRecyclerBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itemlist);
+        activitySalesItemRecyclerBinding = ActivitySalesItemRecyclerBinding.inflate(getLayoutInflater());
+        View view = activitySalesItemRecyclerBinding.getRoot();
+        setContentView(view);
 
         androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("ItemList");
-        lvItemList = findViewById(R.id.lvItemList);
+        actionBar.setTitle("Sales/Exchange");
 
         databaseHelper = new DatabaseHelper(this);
-        loggedInUser = (User) getIntent().getSerializableExtra("loggedUser");
-        showAvailableItem();
+        loggedInUser = (User) getIntent().getSerializableExtra("logged-user");
 
+        loadData();
     }
 
-    public void showAvailableItem() {
+    private void loadData() {
 
-        saleItemArrayList = databaseHelper.getSaleItemList();
-        itemListAdapter = new ItemListAdapter(this, saleItemArrayList);
-        lvItemList.setAdapter(itemListAdapter);
-        itemListAdapter.notifyDataSetChanged();
-
-        lvItemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(ItemListActivity.this, ItemDetailsScreenActivity.class);
-                i.putExtra("bazaar_sale_item", saleItemArrayList.get(position));
-                i.putExtra("loggedUser", loggedInUser);
-                Log.d("ItemListActivity", "Category: " + saleItemArrayList.get(position).getItemCategory());
-                startActivity(i);
-
-            }
-        });
-
+        saleItemList = databaseHelper.getSaleItemList();
+        SalesAdapter adapter = new SalesAdapter(SalesItemRecycler.this, saleItemList, loggedInUser);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        activitySalesItemRecyclerBinding.itemListRecyclerView.setLayoutManager(layoutManager);
+        activitySalesItemRecyclerBinding.itemListRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -81,18 +70,17 @@ public class ItemListActivity extends AppCompatActivity {
             editor.remove("userName");
             editor.apply();
 
-            Intent i = new Intent(ItemListActivity.this, LoginActivity.class);
+            Intent i = new Intent(SalesItemRecycler.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         } else if (item.getItemId() == R.id.viewProfile) {
 
-            Intent i = new Intent(ItemListActivity.this, ViewUserProfileActivity.class);
+            Intent i = new Intent(SalesItemRecycler.this, ViewUserProfileActivity.class);
             i.putExtra("loggedUsernameKey", loggedInUser.getUserName());
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -104,6 +92,4 @@ public class ItemListActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-
 }

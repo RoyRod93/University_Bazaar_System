@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         activityMainBinding.btnSalesExchangeForm.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, SalesExchangeForm.class);
-            i.putExtra("loggedUser", loggedInUser);
+            i.putExtra("logged-user", loggedInUser);
             startActivity(i);
         });
 
@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         activityMainBinding.btnSalesExchange.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, ItemListActivity.class);
-            i.putExtra("loggedUser", loggedInUser);
+            Intent i = new Intent(MainActivity.this, SalesItemRecycler.class);
+            i.putExtra("logged-user", loggedInUser);
             startActivity(i);
         });
 
