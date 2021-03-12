@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".controller.RegisterUser">
+    tools:context=".controller.RegisterUser"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
             android:layout_height="wrap_content"
             android:hint="Username"
             android:inputType="text"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etPassword"
@@ -28,7 +30,8 @@
             android:layout_marginTop="10dp"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etFirstName"
@@ -37,7 +40,8 @@
             android:layout_marginTop="10dp"
             android:hint="First Name"
             android:inputType="text"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etLastName"
@@ -46,7 +50,8 @@
             android:layout_marginTop="10dp"
             android:hint="Last Name"
             android:inputType="text"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etPhone"
@@ -56,7 +61,8 @@
             android:hint="Phone Number"
             android:inputType="phone"
             android:maxLength="10"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etEmail"
@@ -65,7 +71,8 @@
             android:layout_marginTop="10dp"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etStrAddress"
@@ -74,7 +81,8 @@
             android:layout_marginTop="10dp"
             android:hint="Street Address"
             android:inputType="text"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etCity"
@@ -83,7 +91,8 @@
             android:layout_marginTop="10dp"
             android:hint="City"
             android:inputType="text"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etState"
@@ -92,7 +101,8 @@
             android:layout_marginTop="10dp"
             android:hint="State"
             android:inputType="text"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <EditText
             android:id="@+id/etZipCode"
@@ -102,7 +112,8 @@
             android:hint="Zip Code"
             android:inputType="number"
             android:maxLength="5"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/edittext_border"/>
 
         <Button
             android:id="@+id/btnRegister"
@@ -116,4 +127,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

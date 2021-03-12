@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.User;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -28,6 +31,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CITY = "CITY";
     private static final String STATE = "STATE";
     private static final String ZIPCODE = "ZIPCODE";
+
+    private static final String SALES_EXCHANGE_TABLE = "sales_exchange";
+    private static final String SALE_ID = "SALE_ID";
+    private static final String ITEM_NAME = "ITEM_NAME";
+    private static final String ITEM_DESCRIPTION = "ITEM_DESCRIPTION";
+    private static final String POST_DATE = "POST_DATE";
+    private static final String ITEM_CATEGORY = "ITEM_CATEGORY";
+    private static final String OFFER_TYPE = "OFFER_TYPE";
 
     public DatabaseHelper(Context context) {
 
@@ -50,15 +61,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + STATE + " TEXT, "
                 + ZIPCODE + " TEXT " + " ) ";
 
-        Log.i(TAG, "onCreate query " + createUserTable);
+        String createSalesTable = "CREATE TABLE " + SALES_EXCHANGE_TABLE
+                + " ( " + SALE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + USERNAME + " TEXT, "
+                + ITEM_NAME + " TEXT, "
+                + ITEM_DESCRIPTION + " TEXT, "
+                + POST_DATE + " TEXT, "
+                + ITEM_CATEGORY + " TEXT, "
+                + OFFER_TYPE + " TEXT, "
+                + " FOREIGN KEY ( " + USERNAME + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+
+        Log.i(TAG, "createSalesTable: " + createSalesTable);
 
         db.execSQL(createUserTable);
+        db.execSQL(createSalesTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SALES_EXCHANGE_TABLE);
 
         onCreate(db);
     }
@@ -158,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + "=? AND " + PASSWORD + "=?", new String[]{user.getUserName(), user.getPassword()});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE ,null);
 
         if (cursor.getCount() > 0) {
 
@@ -214,5 +237,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void addListing(SaleItem item) {
 
+        SQLiteDatabase db = getWritableDatabase();
+
+        /*long count = DatabaseUtils.queryNumEntries(db, USERS_TABLE);
+
+        if (count == 0) {
+
+            db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + USERS_TABLE + "'");
+        }*/
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(USERNAME, item.getUserName());
+        contentValues.put(ITEM_NAME, item.getItemName());
+        contentValues.put(ITEM_DESCRIPTION, item.getItemDescription());
+        contentValues.put(POST_DATE, item.getPostDate());
+        contentValues.put(ITEM_CATEGORY, item.getItemCategory());
+        contentValues.put(OFFER_TYPE, item.getOfferType());
+
+        db.insert(SALES_EXCHANGE_TABLE, null, contentValues);
+        db.close();
+    }
+
+    public ArrayList<SaleItem> getSaleItemList() {
+        ArrayList<SaleItem> saleItemArrayList = new ArrayList<SaleItem>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String qry = "select * from " + SALES_EXCHANGE_TABLE;
+        try {
+            Cursor c = sqLiteDatabase.rawQuery(qry, null);
+            if (c.getCount() == 0) {
+                return saleItemArrayList;
+            } else {
+                while (c.moveToNext()) {
+                    int saleId = Integer.parseInt(c.getString(c.getColumnIndex(SALE_ID)));
+                    String userName = c.getString(c.getColumnIndex(USERNAME));
+                    String itemName = c.getString(c.getColumnIndex(ITEM_NAME));
+                    String itemDescription = c.getString(c.getColumnIndex(ITEM_DESCRIPTION));
+                    String postDate = c.getString(c.getColumnIndex(POST_DATE));
+                    String itemCategory = c.getString(c.getColumnIndex(ITEM_CATEGORY));
+                    String offerType = c.getString(c.getColumnIndex(OFFER_TYPE));
+                    SaleItem saleItem = new SaleItem( saleId, userName,  itemName,  itemDescription,  postDate,  itemCategory, offerType);
+                    saleItemArrayList.add(saleItem);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return saleItemArrayList;
+    }
 }
