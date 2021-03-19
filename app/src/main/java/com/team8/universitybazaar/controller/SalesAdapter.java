@@ -53,9 +53,9 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
         String offerType = salesItems.get(position).getOfferType();
 
         holder.salesItemBinding.tvItemName.setText(title);
-        holder.salesItemBinding.tvItemCategory.setText("Category: " + category);
-        holder.salesItemBinding.soldBy.setText("Sold by: " + seller);
-        holder.salesItemBinding.tvOfferType.setText("Listing Type: " + offerType);
+        holder.salesItemBinding.tvItemCategory.setText(category);
+        holder.salesItemBinding.soldBy.setText(seller);
+        holder.salesItemBinding.tvOfferType.setText(offerType);
 
         if (category.equalsIgnoreCase("ELECTRONICS")) {
             holder.salesItemBinding.itemImage.setImageResource(R.drawable.electronics);
@@ -63,6 +63,14 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
             holder.salesItemBinding.itemImage.setImageResource(R.drawable.furniture);
         } else {
             holder.salesItemBinding.itemImage.setImageResource(R.drawable.stationary);
+        }
+
+        if (offerType.equals("Sell")) {
+
+            holder.salesItemBinding.tvOfferPrice.setText("$" + salesItems.get(position).getPrice());
+        } else {
+
+            holder.salesItemBinding.tvOfferPrice.setText("N/A");
         }
 
         holder.itemView.setOnClickListener(v -> {

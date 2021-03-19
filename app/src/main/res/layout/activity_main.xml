@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context=".controller.MainActivity"
-    android:background="@color/background">
+    tools:context=".controller.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="University Bazaar System"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:text="University Bazaar System"
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,82 +25,65 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnSalesExchangeForm"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_weight="47.5"
+            android:background="@color/design_default_color_secondary_variant"
+            android:text="Listing Form"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
 
-            <Button
-                android:id="@+id/btnSalesExchangeForm"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_weight="47.5"
-                android:background="@color/design_default_color_secondary_variant"
-                android:text="Listing Form"
-                android:textColor="#FFF"
-                android:textSize="12.5sp"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5" />
-
-            <Button
-                android:id="@+id/btnSalesExchange"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_weight="47.5"
-                android:background="@color/design_default_color_secondary_variant"
-                android:text="Sales/Exchange"
-                android:textColor="#FFF"
-                android:textSize="12.5sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnSalesExchange"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout1"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_weight="47.5"
+            android:background="@color/design_default_color_secondary_variant"
+            android:text="Sales/Exchange"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
 
-            <Button
-                android:id="@+id/btnClubs"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_weight="47.5"
-                android:background="@color/design_default_color_secondary_variant"
-                android:text="Clubs"
-                android:textColor="#FFF"
-                android:textSize="12.5sp"/>
+        <Button
+            android:id="@+id/btnPurchaseHistory"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_weight="47.5"
+            android:background="@color/design_default_color_secondary_variant"
+            android:text="Purchase History"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5" />
+        <Button
+            android:id="@+id/btnClubs"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_weight="47.5"
+            android:background="@color/design_default_color_secondary_variant"
+            android:text="Clubs"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
 
-            <Button
-                android:id="@+id/btnConfirmation"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_weight="47.5"
-                android:background="@color/design_default_color_secondary_variant"
-                android:text="Communication"
-                android:textSize="12.5sp"
-                android:textColor="#FFF" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/btnConfirmation"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_weight="47.5"
+            android:background="@color/design_default_color_secondary_variant"
+            android:text="Communication"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
 
     </LinearLayout>
 

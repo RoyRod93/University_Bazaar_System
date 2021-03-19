@@ -27,7 +27,8 @@
             android:layout_weight="40"
             android:text="@string/username"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <TextView
             android:id="@+id/tvUsernameVal"
@@ -36,7 +37,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:textSize="20sp"
-            android:background="@drawable/edittext_border"/>
+            android:background="@drawable/edittext_border"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -55,7 +57,8 @@
             android:layout_weight="40"
             android:text="@string/password"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etPasswordVal"
@@ -64,7 +67,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -84,7 +88,8 @@
             android:layout_weight="40"
             android:text="@string/first_name"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etFNameVal"
@@ -93,7 +98,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -112,7 +118,8 @@
             android:layout_weight="40"
             android:text="@string/last_name"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etLNameVal"
@@ -121,7 +128,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -142,7 +150,8 @@
             android:layout_weight="40"
             android:text="@string/phone"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etPhoneVal"
@@ -152,7 +161,8 @@
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
             android:inputType="phone"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -172,7 +182,8 @@
             android:layout_weight="40"
             android:text="@string/email"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etLEmailVal"
@@ -181,7 +192,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -201,7 +213,8 @@
             android:layout_weight="40"
             android:text="@string/street"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etStreetVal"
@@ -210,7 +223,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -230,7 +244,8 @@
             android:layout_weight="40"
             android:text="@string/city"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etCityVal"
@@ -239,7 +254,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -259,7 +275,8 @@
             android:layout_weight="40"
             android:text="@string/state"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etStateVal"
@@ -268,7 +285,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
@@ -287,7 +305,8 @@
             android:layout_weight="40"
             android:text="@string/zip"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/etZipVal"
@@ -296,7 +315,8 @@
             android:layout_margin="10dp"
             android:layout_weight="60"
             android:background="@drawable/edittext_border"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 

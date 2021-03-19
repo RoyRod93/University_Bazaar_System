@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        activityMainBinding.btnPurchaseHistory.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, PurchaseHistoryActivity.class);
+            i.putExtra("logged-user", loggedInUser);
+            startActivity(i);
+        });
+
         activityMainBinding.btnClubs.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, WipActivity.class);
             startActivity(i);
