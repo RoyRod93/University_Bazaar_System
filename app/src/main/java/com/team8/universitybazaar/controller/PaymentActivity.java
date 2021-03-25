@@ -259,6 +259,12 @@ public class PaymentActivity extends AppCompatActivity {
         } else if (validations.isBlank(activityPaymentBinding.etZipCode)) {
             activityPaymentBinding.etZipCode.setError("Please enter your zipcode");
             return false;
+        } else if (!validations.isValidFullName(activityPaymentBinding.etNameOnCard)) {
+            activityPaymentBinding.etNameOnCard.setError("Please enter a valid name");
+            return false;
+        } else if (!validations.isValidPincode(activityPaymentBinding.etZipCode)) {
+            activityPaymentBinding.etZipCode.setError("Please enter a valid zip code");
+            return false;
         }
         return true;
     }
