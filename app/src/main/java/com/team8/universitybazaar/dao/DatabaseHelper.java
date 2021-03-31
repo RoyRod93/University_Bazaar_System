@@ -440,4 +440,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(CLUB_TABLE, null, contentValues);
         db.close();
     }
+
+    public List<Clubs> getClubsList() {
+
+        ArrayList<Clubs> clubsArrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + CLUB_TABLE; //+ " WHERE " + USERNAME + " = '" + userName + "'";
+        try {
+            Cursor cursor = db.rawQuery(query, null);
+            if (cursor.getCount() == 0)
+                return clubsArrayList;
+            else {
+                while (cursor.moveToNext()) {
+                    Clubs clubs = new Clubs();
+                    clubs.setClubId(cursor.getInt(cursor.getColumnIndex(CLUB_ID)));
+                    clubs.setClubName(cursor.getString(cursor.getColumnIndex(CLUB_NAME)));
+                    clubs.setClubType(cursor.getString(cursor.getColumnIndex(CLUB_TYPE)));
+                    clubs.setClubDescription(cursor.getString(cursor.getColumnIndex(CLUB_DESCRIPTION)));
+                    clubs.setClubCreationDate(cursor.getString(cursor.getColumnIndex(CLUB_CREATION_DATE)));
+                    clubs.setClubOwner(cursor.getString(cursor.getColumnIndex(CLUB_OWNER_USERNAME)));
+                    clubs.setClubMemberCapacity(cursor.getInt(cursor.getColumnIndex(CLUB_MEMBER_CAPACITY)));
+                    clubsArrayList.add(clubs);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clubsArrayList;
+    }
 }
