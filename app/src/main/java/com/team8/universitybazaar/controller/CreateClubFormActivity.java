@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -15,7 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.team8.universitybazaar.R;
 import com.team8.universitybazaar.dao.DatabaseHelper;
 import com.team8.universitybazaar.databinding.ActivityCreateClubFormBinding;
+import com.team8.universitybazaar.misc.Validations;
+import com.team8.universitybazaar.model.Clubs;
 import com.team8.universitybazaar.model.User;
+
+import java.util.Calendar;
 
 public class CreateClubFormActivity extends AppCompatActivity {
 
@@ -23,6 +29,7 @@ public class CreateClubFormActivity extends AppCompatActivity {
     User loggedInUser;
     String userName;
     private DatabaseHelper databaseHelper;
+    private Validations validations;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +44,9 @@ public class CreateClubFormActivity extends AppCompatActivity {
         actionBar.setTitle("Create Club Form");
 
         databaseHelper = new DatabaseHelper(this);
+        validations = new Validations();
+        Clubs clubs = new Clubs();
+
 
         if (getIntent() != null) {
             if (getIntent().hasExtra("logged-user")) {
@@ -51,7 +61,49 @@ public class CreateClubFormActivity extends AppCompatActivity {
             startActivity(i);
         }
 
+        activityCreateClubFormBinding.btnCreateClub.setOnClickListener(v -> {
 
+            clubs.setClubName(activityCreateClubFormBinding.etClubName.getText().toString().trim());
+            clubs.setClubCreationDate(Calendar.getInstance().getTime().toString());
+            clubs.setClubDescription(activityCreateClubFormBinding.etClubDescription.getText().toString().trim());
+            int clubMembersCapacity = Integer.parseInt(activityCreateClubFormBinding.etClubMembersCapacity.getText().toString());
+            clubs.setClubMemberCapacity(clubMembersCapacity);
+            String ownerUsername = loggedInUser.getUserName();
+            clubs.setClubOwner(ownerUsername);
+
+            int selectedRadioButtonId = activityCreateClubFormBinding.rgClubType.getCheckedRadioButtonId();
+            if (selectedRadioButtonId != -1) {
+                RadioButton selectedRB = findViewById(selectedRadioButtonId);
+                clubs.setClubType(selectedRB.getText().toString().trim());
+            } else {
+                clubs.setClubType("Miscellaneous Clubs");
+            }
+
+            if (isValid()) {
+                databaseHelper.createClub(clubs);
+                Toast.makeText(this, "Club Created Successfully.", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(CreateClubFormActivity.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.putExtra("logged-user", loggedInUser);
+                startActivity(i);
+            } else {
+                Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
+    }
+
+    private boolean isValid() {
+        if (validations.isBlank(activityCreateClubFormBinding.etClubName)) {
+            activityCreateClubFormBinding.etClubName.setError("Please enter the Club Name");
+            return false;
+        } else if (validations.isBlank(activityCreateClubFormBinding.etClubDescription)) {
+            activityCreateClubFormBinding.etClubDescription.setError("Enter Item Description");
+            return false;
+        }
+        return true;
     }
 
 

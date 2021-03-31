@@ -59,13 +59,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CLUB_TYPE = "CLUB_TYPE";
     private static final String CLUB_CREATION_DATE = "CLUB_CREATION_DATE";
     private static final String CLUB_DESCRIPTION = "CLUB_DESCRIPTION";
-    private static final String CLUB_OWNER_USER_ID = "CLUB_OWNER";
+    private static final String CLUB_OWNER_USERNAME = "CLUB_OWNER";
     private static final String CLUB_MEMBER_CAPACITY = "CLUB_MEMBER_CAPACITY";
 
     private static final String CLUB_MEMBERS_TABLE = "club_members_table";
     private static final String FK_CLUB_ID = "CLUB_ID";
     private static final String FK_CLUB_NAME = "CLUB_NAME";
-    private static final String FK_CLUB_MEMBER_USER_ID = "USER_ID";
+    private static final String FK_CLUB_MEMBER_USERNAME = "USER_ID";
     private static final String CLUB_MEMBER_FNAME = "FIRST_NAME";
     private static final String CLUB_MEMBER_LNAME = "LAST_NAME";
     private static final String JOINING_DATE = "JOINING_DATE";
@@ -120,24 +120,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String createClubsTable = "CREATE TABLE " + CLUB_TABLE
                 + " ( " + CLUB_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + CLUB_NAME + " TEXT UNIQUE NOT NULL, "
+                + CLUB_NAME + " TEXT NOT NULL UNIQUE, "
                 + CLUB_TYPE + " TEXT, "
                 + CLUB_DESCRIPTION + " TEXT, "
                 + CLUB_CREATION_DATE + " TEXT, "
-                + CLUB_OWNER_USER_ID + " TEXT, "
+                + CLUB_OWNER_USERNAME + " TEXT, "
                 + CLUB_MEMBER_CAPACITY + " TEXT, "
-                + " FOREIGN KEY ( " + CLUB_OWNER_USER_ID + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+                + " FOREIGN KEY ( " + CLUB_OWNER_USERNAME + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
 
         String createClubMembersTable = "CREATE TABLE " + CLUB_MEMBERS_TABLE
                 + " ( " + FK_CLUB_ID + " INTEGER, "
                 + FK_CLUB_NAME + " TEXT, "
-                + FK_CLUB_MEMBER_USER_ID + " TEXT, "
+                + FK_CLUB_MEMBER_USERNAME + " TEXT, "
                 + CLUB_MEMBER_FNAME + " TEXT, "
                 + CLUB_MEMBER_LNAME + " TEXT, "
                 + JOINING_DATE + " TEXT, "
                 + " FOREIGN KEY ( " + FK_CLUB_ID + " ) REFERENCES " + CLUB_TABLE + " ( " + CLUB_ID + " ), "
                 + " FOREIGN KEY ( " + FK_CLUB_NAME + " ) REFERENCES " + CLUB_TABLE + " ( " + CLUB_NAME + " ), "
-                + " FOREIGN KEY ( " + FK_CLUB_MEMBER_USER_ID + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+                + " FOREIGN KEY ( " + FK_CLUB_MEMBER_USERNAME + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
 
         Log.i(TAG, "createSalesTable: " + createSalesTable);
 
@@ -434,7 +434,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(CLUB_TYPE, club.getClubType());
         contentValues.put(CLUB_CREATION_DATE, club.getClubCreationDate());
         contentValues.put(CLUB_DESCRIPTION, club.getClubDescription());
-        contentValues.put(CLUB_OWNER_USER_ID, club.getClubOwner());
+        contentValues.put(CLUB_OWNER_USERNAME, club.getClubOwner());
         contentValues.put(CLUB_MEMBER_CAPACITY, club.getClubMemberCapacity());
 
         db.insert(CLUB_TABLE, null, contentValues);
