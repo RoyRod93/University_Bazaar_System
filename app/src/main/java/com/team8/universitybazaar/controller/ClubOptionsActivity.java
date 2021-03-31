@@ -8,16 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.team8.universitybazaar.R;
 import com.team8.universitybazaar.dao.DatabaseHelper;
-import com.team8.universitybazaar.databinding.ActivityMainBinding;
+import com.team8.universitybazaar.databinding.ActivityClubOptionsScreenBinding;
 import com.team8.universitybazaar.model.User;
 
-public class MainActivity extends AppCompatActivity {
+public class ClubOptionsActivity extends AppCompatActivity {
 
-    ActivityMainBinding activityMainBinding;
+    ActivityClubOptionsScreenBinding activityClubOptionsScreenBinding;
     User loggedInUser;
     String userName;
     private DatabaseHelper databaseHelper;
@@ -25,17 +26,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = activityMainBinding.getRoot();
+        activityClubOptionsScreenBinding = ActivityClubOptionsScreenBinding.inflate(getLayoutInflater());
+        View view = activityClubOptionsScreenBinding.getRoot();
         setContentView(view);
 
-        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Home Page");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setTitle("Create or Join a Club");
 
         databaseHelper = new DatabaseHelper(this);
 
         if (getIntent() != null) {
-
             if (getIntent().hasExtra("logged-user")) {
                 loggedInUser = (User) getIntent().getSerializableExtra("logged-user");
             } else if (getIntent().hasExtra("userName")) {
@@ -43,43 +45,26 @@ public class MainActivity extends AppCompatActivity {
                 loggedInUser = databaseHelper.getDetails(userName);
             }
         } else {
-            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            Intent i = new Intent(ClubOptionsActivity.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
 
-        activityMainBinding.btnSalesExchangeForm.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, SalesExchangeForm.class);
+        activityClubOptionsScreenBinding.btnCreateClub.setOnClickListener(v -> {
+            Intent i = new Intent(ClubOptionsActivity.this, SalesExchangeForm.class);
             i.putExtra("logged-user", loggedInUser);
             startActivity(i);
         });
 
-        activityMainBinding.btnPurchaseHistory.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, PurchaseHistoryActivity.class);
+        activityClubOptionsScreenBinding.btnJoinClub.setOnClickListener(v -> {
+            Intent i = new Intent(ClubOptionsActivity.this, PurchaseHistoryActivity.class);
             i.putExtra("logged-user", loggedInUser);
             startActivity(i);
         });
 
-        activityMainBinding.btnClubs.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, ClubOptionsActivity.class);
-            i.putExtra("logged-user", loggedInUser);
-            startActivity(i);
-        });
 
-        activityMainBinding.btnSalesExchange.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, SalesItemRecycler.class);
-            i.putExtra("logged-user", loggedInUser);
-            startActivity(i);
-        });
-
-        activityMainBinding.btnConfirmation.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, WipActivity.class);
-            startActivity(i);
-        });
-
-
-//        activityMainBinding.mainTextView.setText("Welcome, " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,27 +81,27 @@ public class MainActivity extends AppCompatActivity {
             editor.remove("userName");
             editor.apply();
 
-            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            Intent i = new Intent(ClubOptionsActivity.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         } else if (item.getItemId() == R.id.viewProfile) {
 
-            Intent i = new Intent(MainActivity.this, ViewUserProfileActivity.class);
+            Intent i = new Intent(ClubOptionsActivity.this, ViewUserProfileActivity.class);
             i.putExtra("loggedUsernameKey", loggedInUser.getUserName());
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        finish();
-//    }
-//
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        onBackPressed();
-//        return true;
-//    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }
