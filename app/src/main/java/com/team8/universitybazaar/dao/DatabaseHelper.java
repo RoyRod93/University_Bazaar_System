@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.team8.universitybazaar.model.Clubs;
 import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.Transaction;
 import com.team8.universitybazaar.model.User;
@@ -51,6 +52,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String EXPIRY_DATE = "EXPIRY_DATE";
     private static final String TRANSACTION_DATE = "TRANSACTION_DATE";
     private static final String TRANSACTION_AMOUNT = "TRANSACTION_AMOUNT";
+
+    private static final String CLUB_TABLE = "club_master_table";
+    private static final String CLUB_ID = "CLUB_ID";
+    private static final String CLUB_NAME = "CLUB_NAME";
+    private static final String CLUB_TYPE = "CLUB_TYPE";
+    private static final String CLUB_CREATION_DATE = "CLUB_CREATION_DATE";
+    private static final String CLUB_DESCRIPTION = "CLUB_DESCRIPTION";
+    private static final String CLUB_OWNER_USER_ID = "CLUB_OWNER";
+    private static final String CLUB_MEMBER_CAPACITY = "CLUB_MEMBER_CAPACITY";
+
+    private static final String CLUB_MEMBERS_TABLE = "club_members_table";
+    private static final String FK_CLUB_ID = "CLUB_ID";
+    private static final String FK_CLUB_NAME = "CLUB_NAME";
+    private static final String FK_CLUB_MEMBER_USER_ID = "USER_ID";
+    private static final String CLUB_MEMBER_FNAME = "FIRST_NAME";
+    private static final String CLUB_MEMBER_LNAME = "LAST_NAME";
+    private static final String JOINING_DATE = "JOINING_DATE";
+
 
     public DatabaseHelper(Context context) {
 
@@ -99,11 +118,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " FOREIGN KEY ( " + USERNAME + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ), "
                 + " FOREIGN KEY ( " + SALE_ID + " ) REFERENCES " + SALES_EXCHANGE_TABLE + " ( " + SALE_ID + " ) )";
 
+        String createClubsTable = "CREATE TABLE " + CLUB_TABLE
+                + " ( " + CLUB_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + CLUB_NAME + " TEXT UNIQUE NOT NULL, "
+                + CLUB_TYPE + " TEXT, "
+                + CLUB_DESCRIPTION + " TEXT, "
+                + CLUB_CREATION_DATE + " TEXT, "
+                + CLUB_OWNER_USER_ID + " TEXT, "
+                + CLUB_MEMBER_CAPACITY + " TEXT, "
+                + " FOREIGN KEY ( " + CLUB_OWNER_USER_ID + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+
+        String createClubMembersTable = "CREATE TABLE " + CLUB_MEMBERS_TABLE
+                + " ( " + FK_CLUB_ID + " INTEGER, "
+                + FK_CLUB_NAME + " TEXT, "
+                + FK_CLUB_MEMBER_USER_ID + " TEXT, "
+                + CLUB_MEMBER_FNAME + " TEXT, "
+                + CLUB_MEMBER_LNAME + " TEXT, "
+                + JOINING_DATE + " TEXT, "
+                + " FOREIGN KEY ( " + FK_CLUB_ID + " ) REFERENCES " + CLUB_TABLE + " ( " + CLUB_ID + " ), "
+                + " FOREIGN KEY ( " + FK_CLUB_NAME + " ) REFERENCES " + CLUB_TABLE + " ( " + CLUB_NAME + " ), "
+                + " FOREIGN KEY ( " + FK_CLUB_MEMBER_USER_ID + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+
         Log.i(TAG, "createSalesTable: " + createSalesTable);
 
         db.execSQL(createUserTable);
         db.execSQL(createSalesTable);
         db.execSQL(createTransactionsTable);
+        db.execSQL(createClubsTable);
+        db.execSQL(createClubMembersTable);
     }
 
     @Override
@@ -112,6 +154,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + SALES_EXCHANGE_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + TRANSACTION_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CLUB_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CLUB_MEMBERS_TABLE);
 
         onCreate(db);
     }
@@ -378,5 +422,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         return transactions;
+    }
+
+    public void createClub(Clubs club) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CLUB_ID, club.getClubId());
+        contentValues.put(CLUB_NAME, club.getClubName());
+        contentValues.put(CLUB_TYPE, club.getClubType());
+        contentValues.put(CLUB_CREATION_DATE, club.getClubCreationDate());
+        contentValues.put(CLUB_DESCRIPTION, club.getClubDescription());
+        contentValues.put(CLUB_OWNER_USER_ID, club.getClubOwner());
+        contentValues.put(CLUB_MEMBER_CAPACITY, club.getClubMemberCapacity());
+
+        db.insert(CLUB_TABLE, null, contentValues);
+        db.close();
     }
 }
