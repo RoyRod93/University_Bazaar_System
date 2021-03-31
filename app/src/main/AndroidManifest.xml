@@ -22,6 +22,7 @@
         <activity android:name=".controller.ForgetPasswordActivity" />
         <activity android:name=".controller.WipActivity" />
         <activity android:name=".controller.ClubOptionsActivity" />
+        <activity android:name=".controller.CreateClubFormActivity" />
         <activity android:name=".controller.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

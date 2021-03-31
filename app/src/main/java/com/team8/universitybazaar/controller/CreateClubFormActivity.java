@@ -8,32 +8,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.team8.universitybazaar.R;
 import com.team8.universitybazaar.dao.DatabaseHelper;
-import com.team8.universitybazaar.databinding.ActivityClubOptionsScreenBinding;
+import com.team8.universitybazaar.databinding.ActivityCreateClubFormBinding;
 import com.team8.universitybazaar.model.User;
 
-public class ClubOptionsActivity extends AppCompatActivity {
+public class CreateClubFormActivity extends AppCompatActivity {
 
-    ActivityClubOptionsScreenBinding activityClubOptionsScreenBinding;
+    ActivityCreateClubFormBinding activityCreateClubFormBinding;
     User loggedInUser;
     String userName;
     private DatabaseHelper databaseHelper;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityClubOptionsScreenBinding = ActivityClubOptionsScreenBinding.inflate(getLayoutInflater());
-        View view = activityClubOptionsScreenBinding.getRoot();
+        activityCreateClubFormBinding = ActivityCreateClubFormBinding.inflate(getLayoutInflater());
+        View view = activityCreateClubFormBinding.getRoot();
         setContentView(view);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("Create or Join a Club");
+        actionBar.setTitle("Create Club Form");
 
         databaseHelper = new DatabaseHelper(this);
 
@@ -45,22 +46,10 @@ public class ClubOptionsActivity extends AppCompatActivity {
                 loggedInUser = databaseHelper.getDetails(userName);
             }
         } else {
-            Intent i = new Intent(ClubOptionsActivity.this, LoginActivity.class);
+            Intent i = new Intent(CreateClubFormActivity.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
-
-        activityClubOptionsScreenBinding.btnCreateClub.setOnClickListener(v -> {
-            Intent i = new Intent(ClubOptionsActivity.this, CreateClubFormActivity.class);
-            i.putExtra("logged-user", loggedInUser);
-            startActivity(i);
-        });
-
-        activityClubOptionsScreenBinding.btnJoinClub.setOnClickListener(v -> {
-            Intent i = new Intent(ClubOptionsActivity.this, PurchaseHistoryActivity.class);
-            i.putExtra("logged-user", loggedInUser);
-            startActivity(i);
-        });
 
 
     }
@@ -81,12 +70,12 @@ public class ClubOptionsActivity extends AppCompatActivity {
             editor.remove("userName");
             editor.apply();
 
-            Intent i = new Intent(ClubOptionsActivity.this, LoginActivity.class);
+            Intent i = new Intent(CreateClubFormActivity.this, LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         } else if (item.getItemId() == R.id.viewProfile) {
 
-            Intent i = new Intent(ClubOptionsActivity.this, ViewUserProfileActivity.class);
+            Intent i = new Intent(CreateClubFormActivity.this, ViewUserProfileActivity.class);
             i.putExtra("loggedUsernameKey", loggedInUser.getUserName());
             startActivity(i);
         }
