@@ -429,7 +429,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CLUB_ID, club.getClubId());
+        //contentValues.put(CLUB_ID, club.getClubId());
         contentValues.put(CLUB_NAME, club.getClubName());
         contentValues.put(CLUB_TYPE, club.getClubType());
         contentValues.put(CLUB_CREATION_DATE, club.getClubCreationDate());

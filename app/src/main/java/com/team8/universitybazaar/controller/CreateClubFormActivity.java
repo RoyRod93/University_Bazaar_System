@@ -45,8 +45,6 @@ public class CreateClubFormActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
         validations = new Validations();
-        Clubs clubs = new Clubs();
-
 
         if (getIntent() != null) {
             if (getIntent().hasExtra("logged-user")) {
@@ -62,6 +60,8 @@ public class CreateClubFormActivity extends AppCompatActivity {
         }
 
         activityCreateClubFormBinding.btnCreateClub.setOnClickListener(v -> {
+
+            final Clubs clubs = new Clubs();
 
             clubs.setClubName(activityCreateClubFormBinding.etClubName.getText().toString().trim());
             clubs.setClubCreationDate(Calendar.getInstance().getTime().toString());
