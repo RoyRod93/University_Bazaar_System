@@ -57,7 +57,7 @@ public class ClubOptionsActivity extends AppCompatActivity {
         });
 
         activityClubOptionsScreenBinding.btnJoinClub.setOnClickListener(v -> {
-            Intent i = new Intent(ClubOptionsActivity.this, PurchaseHistoryActivity.class);
+            Intent i = new Intent(ClubOptionsActivity.this, ClubItemRecycler.class);
             i.putExtra("logged-user", loggedInUser);
             startActivity(i);
         });
