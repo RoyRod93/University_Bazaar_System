@@ -247,7 +247,7 @@ public class PaymentActivity extends AppCompatActivity {
         if (validations.isBlank(activityPaymentBinding.etCardNo) || activityPaymentBinding.etCardNo.getText().toString().trim().length() != 19) {
             activityPaymentBinding.etCardNo.setError("Please check the card number");
             return false;
-        } else if (validations.isBlank(activityPaymentBinding.etExpiryDate) || (Integer.parseInt(splitDate[0]) < 0 || Integer.parseInt(splitDate[0]) > 12) || (Integer.parseInt(splitDate[1]) < currentYear)) {
+        } else if (validations.isBlank(activityPaymentBinding.etExpiryDate) || (activityPaymentBinding.etExpiryDate.getText().toString().length() < 5) || (Integer.parseInt(splitDate[0]) < 0 || Integer.parseInt(splitDate[0]) > 12) || (Integer.parseInt(splitDate[1]) < currentYear)) {
             activityPaymentBinding.etExpiryDate.setError("Please check the expiration date");
             return false;
         } else if (validations.isBlank(activityPaymentBinding.etSecurityCode) || activityPaymentBinding.etSecurityCode.getText().toString().length() < 3) {
