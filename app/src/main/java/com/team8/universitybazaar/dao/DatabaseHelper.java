@@ -14,6 +14,7 @@ import com.team8.universitybazaar.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -467,5 +468,78 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         return clubsArrayList;
+    }
+
+    public List<Clubs> getAvailableClubsList(String userName) {
+
+        ArrayList<Clubs> clubsArrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+//        String query = "SELECT * FROM " + CLUB_TABLE+ " WHERE " + CLUB_NAME + " NOT IN " + "("  + "SELECT " + CLUB_NAME  + "FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME  + "=" +  userName + ")" ;
+        try {
+//            Cursor cursor = db.rawQuery(query, null);
+
+            Cursor cursor = db.rawQuery("SELECT * FROM " + CLUB_TABLE+ " WHERE " + CLUB_NAME + " NOT IN " + "("  + "SELECT " + CLUB_NAME  + " FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME  + "=?" + ")", new String[]{userName});
+            if (cursor.getCount() == 0)
+                return clubsArrayList;
+            else {
+                while (cursor.moveToNext()) {
+                    Clubs clubs = new Clubs();
+                    clubs.setClubId(cursor.getInt(cursor.getColumnIndex(CLUB_ID)));
+                    clubs.setClubName(cursor.getString(cursor.getColumnIndex(CLUB_NAME)));
+                    clubs.setClubType(cursor.getString(cursor.getColumnIndex(CLUB_TYPE)));
+                    clubs.setClubDescription(cursor.getString(cursor.getColumnIndex(CLUB_DESCRIPTION)));
+                    clubs.setClubCreationDate(cursor.getString(cursor.getColumnIndex(CLUB_CREATION_DATE)));
+                    clubs.setClubOwner(cursor.getString(cursor.getColumnIndex(CLUB_OWNER_USERNAME)));
+                    clubs.setClubMemberCapacity(cursor.getInt(cursor.getColumnIndex(CLUB_MEMBER_CAPACITY)));
+                    clubsArrayList.add(clubs);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clubsArrayList;
+    }
+
+    public List<Clubs> getJoinedClubsList(String userName) {
+
+        ArrayList<Clubs> clubsArrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+//        String query = "SELECT * FROM " + CLUB_TABLE+ " WHERE " + CLUB_NAME + " NOT IN " + "("  + "SELECT " + CLUB_NAME  + "FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME  + "=" +  userName + ")" ;
+        try {
+//            Cursor cursor = db.rawQuery(query, null);
+
+            Cursor cursor = db.rawQuery("SELECT * FROM " + CLUB_TABLE+ " WHERE " + CLUB_NAME + " IN " + "("  + "SELECT " + CLUB_NAME  + " FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME  + "=?" + ")", new String[]{userName});
+            if (cursor.getCount() == 0)
+                return clubsArrayList;
+            else {
+                while (cursor.moveToNext()) {
+                    Clubs clubs = new Clubs();
+                    clubs.setClubId(cursor.getInt(cursor.getColumnIndex(CLUB_ID)));
+                    clubs.setClubName(cursor.getString(cursor.getColumnIndex(CLUB_NAME)));
+                    clubs.setClubType(cursor.getString(cursor.getColumnIndex(CLUB_TYPE)));
+                    clubs.setClubDescription(cursor.getString(cursor.getColumnIndex(CLUB_DESCRIPTION)));
+                    clubs.setClubCreationDate(cursor.getString(cursor.getColumnIndex(CLUB_CREATION_DATE)));
+                    clubs.setClubOwner(cursor.getString(cursor.getColumnIndex(CLUB_OWNER_USERNAME)));
+                    clubs.setClubMemberCapacity(cursor.getInt(cursor.getColumnIndex(CLUB_MEMBER_CAPACITY)));
+                    clubsArrayList.add(clubs);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clubsArrayList;
+    }
+    public void joinClub(String  clubName, String userId) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(FK_CLUB_NAME, clubName);
+        contentValues.put(FK_CLUB_MEMBER_USERNAME, userId);
+        contentValues.put(CLUB_MEMBER_FNAME, " ");
+        contentValues.put(CLUB_MEMBER_LNAME, " ");
+        contentValues.put(JOINING_DATE, Calendar.getInstance().getTime().toString());
+
+        db.insert(CLUB_MEMBERS_TABLE, null, contentValues);
+        db.close();
     }
 }

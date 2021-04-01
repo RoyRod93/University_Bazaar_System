@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ViewHolder> 
         this.mContext = mContext;
         this.clubsList = clubsList;
         this.loggedInUser = loggedInUser;
+        databaseHelper = new DatabaseHelper(mContext);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,11 +60,11 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ViewHolder> 
         holder.clubsListBinding.tvClubType.setText(clubType);
 
 
-        holder.itemView.setOnClickListener(v -> {
 
-            Intent i = new Intent(mContext, ClubItemRecycler.class);
-            i.putExtra("join_club", clubsList.get(position));
-            mContext.startActivity(i);
+        holder.clubsListBinding.btnClubListingJoinClub.setOnClickListener(v -> {
+            String cName =  clubsList.get(position).getClubName();
+            databaseHelper.joinClub(cName,loggedInUser.getUserName());
+            Toast.makeText(mContext," Joined " +  clubsList.get(position).getClubName() + " successfully", Toast.LENGTH_LONG).show();
         });
     }
 

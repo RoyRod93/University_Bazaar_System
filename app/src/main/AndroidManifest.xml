@@ -13,6 +13,7 @@
         <activity android:name=".controller.PaymentActivity" />
         <activity android:name=".controller.SalesItemRecycler" />
         <activity android:name=".controller.ClubItemRecycler" />
+        <activity android:name=".controller.JoinedClubItemRecycler" />
         <activity android:name=".controller.ItemDetailsScreenActivity" />
         <activity android:name=".controller.SalesExchangeForm" />
         <activity android:name=".controller.RegisterUser" />
