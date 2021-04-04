@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/itemImage"
             android:layout_width="0dp"
-            android:layout_height="106dp"
+            android:layout_height="154dp"
             android:layout_weight="35"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"/>
@@ -35,29 +35,93 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:padding="5dp"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/soldBy"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginTop="2dp"/>
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:padding="5dp">
 
-            <TextView
-                android:id="@+id/tvItemCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="italic"
-                android:layout_marginTop="2dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sold by: "
+                    android:layout_weight="35"/>
 
-            <TextView
-                android:id="@+id/tvOfferType"
+                <TextView
+                    android:id="@+id/soldBy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginTop="2dp"/>
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Category: "
+                    android:layout_weight="35"/>
+
+                <TextView
+                    android:id="@+id/tvItemCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Offer Type: "
+                    android:layout_weight="35"/>
+
+                <TextView
+                    android:id="@+id/tvOfferType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Offer Price: "
+                    android:layout_weight="35"/>
+
+                <TextView
+                    android:id="@+id/tvOfferPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

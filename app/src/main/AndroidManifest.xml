@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UniversityBazaar">
+        <activity android:name=".controller.PurchaseHistoryActivity" />
+        <activity android:name=".controller.PaymentActivity" />
         <activity android:name=".controller.SalesItemRecycler" />
+        <activity android:name=".controller.ClubItemRecycler" />
+        <activity android:name=".controller.JoinedClubItemRecycler" />
         <activity android:name=".controller.ItemDetailsScreenActivity" />
         <activity android:name=".controller.SalesExchangeForm" />
         <activity android:name=".controller.RegisterUser" />
@@ -19,6 +23,8 @@
         <activity android:name=".controller.EditUserProfileActivity" />
         <activity android:name=".controller.ForgetPasswordActivity" />
         <activity android:name=".controller.WipActivity" />
+        <activity android:name=".controller.ClubOptionsActivity" />
+        <activity android:name=".controller.CreateClubFormActivity" />
         <activity android:name=".controller.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.team8.universitybazaar.R;
@@ -44,12 +47,25 @@ public class SalesExchangeForm extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
         validations = new Validations();
+        SaleItem newItem = new SaleItem();
+        newItem.setOfferType("Sell");
 
         loggedInUser = (User) getIntent().getSerializableExtra("logged-user");
 
-        activitySalesExchangeFormBinding.btnSaveItem.setOnClickListener(v -> {
+        activitySalesExchangeFormBinding.rgSalesExchange.setOnCheckedChangeListener((group, checkedId) -> {
 
-            SaleItem newItem = new SaleItem();
+            if (checkedId == R.id.rbSellItem) {
+                changeEditTextAvailability(activitySalesExchangeFormBinding.etItemPrice, true);
+                newItem.setOfferType("Sell");
+            }
+
+            if (checkedId == R.id.rbExchangeItem) {
+                changeEditTextAvailability(activitySalesExchangeFormBinding.etItemPrice, false);
+                newItem.setOfferType("Exchange");
+            }
+        });
+
+        activitySalesExchangeFormBinding.btnSaveItem.setOnClickListener(v -> {
 
             newItem.setUserName(loggedInUser.getUserName());
             newItem.setItemName(activitySalesExchangeFormBinding.etItemName.getText().toString().trim());
@@ -66,18 +82,16 @@ public class SalesExchangeForm extends AppCompatActivity {
                 newItem.setItemCategory("Other");
             }
 
-            int saleExchangeRB = activitySalesExchangeFormBinding.rgSalesExchange.getCheckedRadioButtonId();
-
-            if (saleExchangeRB != -1) {
-
-                RadioButton selectedRB = findViewById(saleExchangeRB);
-                newItem.setOfferType(selectedRB.getText().toString().trim());
-            } else {
-                newItem.setItemCategory("Sell");
-            }
-            
             if (isValid()) {
                 /*Write database insertion here.... call addListing method and pass the newItem object*/
+                if (newItem.getOfferType().equals("Sell")) {
+
+                    newItem.setPrice(Integer.parseInt(activitySalesExchangeFormBinding.etItemPrice.getText().toString().trim()));
+                } else {
+
+                    newItem.setPrice(0);
+                }
+                newItem.setIsVisible(1);
                 databaseHelper.addListing(newItem);
                 Toast.makeText(this, "Listing added successfully...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SalesExchangeForm.this, MainActivity.class);
@@ -137,5 +151,11 @@ public class SalesExchangeForm extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void changeEditTextAvailability(EditText editText, boolean status) {
+        editText.setEnabled(status);
+        editText.setCursorVisible(status);
+        editText.setFocusableInTouchMode(status);
     }
 }

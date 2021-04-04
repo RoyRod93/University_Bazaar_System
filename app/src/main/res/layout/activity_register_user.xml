@@ -100,8 +100,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="State"
-            android:inputType="text"
+            android:inputType="textCapCharacters"
             android:padding="10dp"
+            android:maxLength="2"
             android:background="@drawable/edittext_border"/>
 
         <EditText

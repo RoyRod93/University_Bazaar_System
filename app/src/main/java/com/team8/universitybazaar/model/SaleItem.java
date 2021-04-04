@@ -11,12 +11,14 @@ public class SaleItem implements Serializable {
     String postDate;
     String itemCategory;
     String offerType;
+    int price;
+    int isVisible;
 
     public SaleItem() {
 
     }
 
-    public SaleItem(int saleId, String userName, String itemName, String itemDescription, String postDate, String itemCategory, String offerType) {
+    public SaleItem(int saleId, String userName, String itemName, String itemDescription, String postDate, String itemCategory, String offerType, int price, int isVisible) {
 
         this.saleId = saleId;
         this.userName = userName;
@@ -25,6 +27,8 @@ public class SaleItem implements Serializable {
         this.postDate = postDate;
         this.itemCategory = itemCategory;
         this.offerType = offerType;
+        this.price = price;
+        this.isVisible = isVisible;
     }
 
     public int getSaleId() {
@@ -81,5 +85,21 @@ public class SaleItem implements Serializable {
 
     public void setOfferType(String offerType) {
         this.offerType = offerType;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getIsVisible() {
+        return isVisible;
+    }
+
+    public void setIsVisible(int isVisible) {
+        this.isVisible = isVisible;
     }
 }

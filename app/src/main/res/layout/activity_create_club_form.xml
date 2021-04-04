@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".controller.SalesExchangeForm">
+    tools:context=".controller.CreateClubFormActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,76 +14,67 @@
         android:padding="15dp">
 
         <EditText
-            android:id="@+id/etItemName"
+            android:id="@+id/etClubName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edittext_border"
-            android:hint="Item Name"
+            android:hint="@string/club_name"
             android:padding="15dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:padding="15dp"
-            android:text="Select Item Type: " />
+            android:text="@string/select_club_type" />
 
         <RadioGroup
-            android:id="@+id/rgItemType"
+            android:id="@+id/rgClubType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:checkedButton="@id/rbOther">
+            android:checkedButton="@id/rbCommunity"
+            android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/rbElectronics"
+                android:id="@+id/rbSports"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Electronics" />
+                android:text="@string/sports" />
 
             <RadioButton
-                android:id="@+id/rbFurniture"
+                android:id="@+id/rbAcademics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Furniture" />
+                android:text="@string/academics" />
 
             <RadioButton
-                android:id="@+id/rbStationary"
+                android:id="@+id/rbMusic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Stationary" />
+                android:text="@string/music" />
 
             <RadioButton
-                android:id="@+id/rbOther"
+                android:id="@+id/rbCommunity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Other" />
+                android:text="Community" />
 
         </RadioGroup>
 
         <EditText
-            android:id="@+id/etItemDescription"
+            android:id="@+id/etClubDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/edittext_border"
             android:gravity="top"
-            android:hint="Item Description"
+            android:hint="@string/club_description"
             android:inputType="textMultiLine"
             android:lines="10"
-            android:padding="15dp" />
-
-        <EditText
-            android:id="@+id/etItemPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/edittext_border"
-            android:gravity="top"
-            android:hint="Item Price"
-            android:inputType="numberDecimal"
             android:padding="15dp" />
 
         <TextView
@@ -91,37 +82,25 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Select Listing Type: " />
+            android:text="Club Members Capacity: " />
 
-        <RadioGroup
-            android:id="@+id/rgSalesExchange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/etClubMembersCapacity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:checkedButton="@id/rbSellItem">
-
-            <RadioButton
-                android:id="@+id/rbSellItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sell" />
-
-            <RadioButton
-                android:id="@+id/rbExchangeItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Exchange" />
-
-        </RadioGroup>
+            android:background="@drawable/edittext_border"
+            android:gravity="center"
+            android:inputType="number"
+            android:padding="5dp" />
 
         <Button
-            android:id="@+id/btnSaveItem"
+            android:id="@+id/btnCreateClub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Add Listing" />
+            android:layout_marginTop="15dp"
+            android:text="@string/create_club" />
 
     </LinearLayout>
 
