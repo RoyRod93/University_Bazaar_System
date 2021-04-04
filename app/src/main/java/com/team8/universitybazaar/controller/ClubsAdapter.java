@@ -64,7 +64,11 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsAdapter.ViewHolder> 
         holder.clubsListBinding.btnClubListingJoinClub.setOnClickListener(v -> {
             String cName =  clubsList.get(position).getClubName();
             databaseHelper.joinClub(cName,loggedInUser.getUserName());
-            Toast.makeText(mContext," Joined " +  clubsList.get(position).getClubName() + " successfully", Toast.LENGTH_LONG).show();
+
+            Intent i = new Intent(mContext, ClubOptionsActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            i.putExtra("logged-user", loggedInUser);
+            mContext.startActivity(i);
         });
     }
 

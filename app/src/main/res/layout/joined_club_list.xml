@@ -16,9 +16,8 @@
 
         <LinearLayout
             android:id="@+id/itemLl"
-            android:layout_width="352dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
             android:layout_weight="65"
             android:orientation="vertical">
 
@@ -26,22 +25,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
+                android:weightSum="100"
+                android:layout_margin="10dp">
 
                 <TextView
-                    android:layout_width="72dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Club Name: "
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tvJoinedClubName"
-                    android:layout_width="57dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="65"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -49,44 +48,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
+                android:weightSum="100"
+                android:layout_margin="10dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Club Type:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tvJoinedClubType"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="65"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnClubListingJoinClub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="100">
-
-                <Button
-                    android:id="@+id/btnClubListingJoinClub"
-                    android:layout_width="355dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="#4CAF50"
-                    android:text="Joined"
-                    android:textColor="#4CAF50"
-                    android:textSize="14sp" />
-
-
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:text="Joined"
+                android:textColor="#4CAF50"
+                android:textSize="15sp"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
 

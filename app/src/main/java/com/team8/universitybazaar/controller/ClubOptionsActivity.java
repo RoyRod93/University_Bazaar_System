@@ -101,7 +101,11 @@ public class ClubOptionsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
+        Intent i = new Intent(ClubOptionsActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.putExtra("logged-user", loggedInUser);
+        startActivity(i);
     }
 
     @Override

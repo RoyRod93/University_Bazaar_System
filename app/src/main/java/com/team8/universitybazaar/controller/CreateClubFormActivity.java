@@ -82,8 +82,8 @@ public class CreateClubFormActivity extends AppCompatActivity {
             if (isValid()) {
                 databaseHelper.createClub(clubs);
                 Toast.makeText(this, "Club Created Successfully.", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(CreateClubFormActivity.this, MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent i = new Intent(CreateClubFormActivity.this, ClubOptionsActivity.class);
+                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 i.putExtra("logged-user", loggedInUser);
                 startActivity(i);
             } else {
