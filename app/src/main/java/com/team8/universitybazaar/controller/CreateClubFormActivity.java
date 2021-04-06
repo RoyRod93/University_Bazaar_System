@@ -66,8 +66,16 @@ public class CreateClubFormActivity extends AppCompatActivity {
             clubs.setClubName(activityCreateClubFormBinding.etClubName.getText().toString().trim());
             clubs.setClubCreationDate(Calendar.getInstance().getTime().toString());
             clubs.setClubDescription(activityCreateClubFormBinding.etClubDescription.getText().toString().trim());
-            int clubMembersCapacity = Integer.parseInt(activityCreateClubFormBinding.etClubMembersCapacity.getText().toString());
-            clubs.setClubMemberCapacity(clubMembersCapacity);
+            String capacity = activityCreateClubFormBinding.etClubMembersCapacity.getText().toString();
+
+            if (isValid()) {
+                clubs.setClubMemberCapacity(Integer.valueOf(capacity));
+
+            } else {
+                activityCreateClubFormBinding.etClubMembersCapacity.setError("");
+            }
+
+
             String ownerUsername = loggedInUser.getUserName();
             clubs.setClubOwner(ownerUsername);
 
@@ -87,7 +95,7 @@ public class CreateClubFormActivity extends AppCompatActivity {
                 i.putExtra("logged-user", loggedInUser);
                 startActivity(i);
             } else {
-                Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill all details", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -96,14 +104,26 @@ public class CreateClubFormActivity extends AppCompatActivity {
     }
 
     private boolean isValid() {
-        if (validations.isBlank(activityCreateClubFormBinding.etClubName)) {
+        if ((validations.isBlank(activityCreateClubFormBinding.etClubName))
+                && (validations.isBlank(activityCreateClubFormBinding.etClubDescription))
+                && (activityCreateClubFormBinding.etClubMembersCapacity.getText().toString() == "" ||
+                activityCreateClubFormBinding.etClubMembersCapacity.getText().toString().isEmpty())) {
+            activityCreateClubFormBinding.etClubName.setError("Please enter the Club Name");
+            activityCreateClubFormBinding.etClubDescription.setError("Enter Club Description");
+            activityCreateClubFormBinding.etClubMembersCapacity.setError("Enter Members Capacity");
+            return false;
+        } else if (validations.isBlank(activityCreateClubFormBinding.etClubName)) {
             activityCreateClubFormBinding.etClubName.setError("Please enter the Club Name");
             return false;
         } else if (validations.isBlank(activityCreateClubFormBinding.etClubDescription)) {
-            activityCreateClubFormBinding.etClubDescription.setError("Enter Item Description");
+            activityCreateClubFormBinding.etClubDescription.setError("Enter Club Description");
             return false;
-        }
-        return true;
+        } else if (activityCreateClubFormBinding.etClubMembersCapacity.getText().toString() == "" ||
+                activityCreateClubFormBinding.etClubMembersCapacity.getText().toString().isEmpty()) {
+            activityCreateClubFormBinding.etClubMembersCapacity.setError("Enter Members Capacity");
+            return false;
+        } else
+            return true;
     }
 
 
