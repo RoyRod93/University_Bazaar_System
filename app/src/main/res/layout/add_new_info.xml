@@ -41,7 +41,6 @@
 
     <Button
         android:id="@+id/btnAddInfo"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Post"
