@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Home Page");
+        actionBar.setTitle("University Bazaar System");
 
         databaseHelper = new DatabaseHelper(this);
 
@@ -68,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
         activityMainBinding.btnSalesExchange.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, SalesItemRecycler.class);
+            i.putExtra("logged-user", loggedInUser);
+            startActivity(i);
+        });
+
+        activityMainBinding.btnInfoExchange.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, InfoExchange.class);
             i.putExtra("logged-user", loggedInUser);
             startActivity(i);
         });

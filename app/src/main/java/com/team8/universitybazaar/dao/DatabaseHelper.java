@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.team8.universitybazaar.model.Clubs;
+import com.team8.universitybazaar.model.Info;
 import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.Transaction;
 import com.team8.universitybazaar.model.User;
@@ -70,6 +71,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CLUB_MEMBER_FNAME = "FIRST_NAME";
     private static final String CLUB_MEMBER_LNAME = "LAST_NAME";
     private static final String JOINING_DATE = "JOINING_DATE";
+
+    private static final String INFO_EXCHANGE_TABLE = "info_exchange_table";
+    private static final String INFO_ID = "INFO_ID";
+    private static final String INFO_AUTHOR = "INFO_AUTHOR";
+    private static final String INFO_TITLE = "INFO_TITLE";
+    private static final String INFO_CONTENT = "INFO_CONTENT";
+    private static final String INFO_DATE = "INFO_DATE";
 
 
     public DatabaseHelper(Context context) {
@@ -140,6 +148,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " FOREIGN KEY ( " + FK_CLUB_NAME + " ) REFERENCES " + CLUB_TABLE + " ( " + CLUB_NAME + " ), "
                 + " FOREIGN KEY ( " + FK_CLUB_MEMBER_USERNAME + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
 
+        String createInfoExchangeTable = "CREATE TABLE " + INFO_EXCHANGE_TABLE
+                + " ( " + INFO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + INFO_AUTHOR + " TEXT, "
+                + INFO_TITLE + " TEXT, "
+                + INFO_CONTENT + " TEXT, "
+                + INFO_DATE + " TEXT, "
+                + " FOREIGN KEY ( " + INFO_AUTHOR + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+
         Log.i(TAG, "createSalesTable: " + createSalesTable);
 
         db.execSQL(createUserTable);
@@ -147,6 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTransactionsTable);
         db.execSQL(createClubsTable);
         db.execSQL(createClubMembersTable);
+        db.execSQL(createInfoExchangeTable);
     }
 
     @Override
@@ -256,7 +273,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE ,null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + USERS_TABLE, null);
 
         if (cursor.getCount() > 0) {
 
@@ -356,7 +373,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     String offerType = c.getString(c.getColumnIndex(OFFER_TYPE));
                     int price = c.getInt(c.getColumnIndex(OFFER_PRICE));
                     int isVisible = c.getInt(c.getColumnIndex(IS_VISIBLE));
-                    SaleItem saleItem = new SaleItem( saleId, userName,  itemName,  itemDescription,  postDate,  itemCategory, offerType, price, isVisible);
+                    SaleItem saleItem = new SaleItem(saleId, userName, itemName, itemDescription, postDate, itemCategory, offerType, price, isVisible);
                     saleItemArrayList.add(saleItem);
                 }
             }
@@ -478,7 +495,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
 //            Cursor cursor = db.rawQuery(query, null);
 
-            Cursor cursor = db.rawQuery("SELECT * FROM " + CLUB_TABLE+ " WHERE " + CLUB_NAME + " NOT IN " + "("  + "SELECT " + CLUB_NAME  + " FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME  + "=?" + ")", new String[]{userName});
+            Cursor cursor = db.rawQuery("SELECT * FROM " + CLUB_TABLE + " WHERE " + CLUB_NAME + " NOT IN " + "(" + "SELECT " + CLUB_NAME + " FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME + "=?" + ")", new String[]{userName});
             if (cursor.getCount() == 0)
                 return clubsArrayList;
             else {
@@ -508,7 +525,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
 //            Cursor cursor = db.rawQuery(query, null);
 
-            Cursor cursor = db.rawQuery("SELECT * FROM " + CLUB_TABLE+ " WHERE " + CLUB_NAME + " IN " + "("  + "SELECT " + CLUB_NAME  + " FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME  + "=?" + ")", new String[]{userName});
+            Cursor cursor = db.rawQuery("SELECT * FROM " + CLUB_TABLE + " WHERE " + CLUB_NAME + " IN " + "(" + "SELECT " + CLUB_NAME + " FROM " + CLUB_MEMBERS_TABLE + " WHERE " + FK_CLUB_MEMBER_USERNAME + "=?" + ")", new String[]{userName});
             if (cursor.getCount() == 0)
                 return clubsArrayList;
             else {
@@ -529,7 +546,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return clubsArrayList;
     }
-    public void joinClub(String  clubName, String userId) {
+
+    public void joinClub(String clubName, String userId) {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -541,5 +559,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(CLUB_MEMBERS_TABLE, null, contentValues);
         db.close();
+    }
+
+    public boolean addInfo(Info info) {
+
+        try {
+
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(INFO_AUTHOR, info.getAuthor());
+            contentValues.put(INFO_TITLE, info.getTitle());
+            contentValues.put(INFO_CONTENT, info.getContent());
+            contentValues.put(INFO_DATE, info.getDate());
+
+            db.insert(INFO_EXCHANGE_TABLE, null, contentValues);
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Info> getInfoExchangePosts() {
+        ArrayList<Info> infoExchangePosts = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String qry = "select * from " + INFO_EXCHANGE_TABLE;
+        try {
+            Cursor c = sqLiteDatabase.rawQuery(qry, null);
+            if (c.getCount() == 0) {
+                return infoExchangePosts;
+            } else {
+                while (c.moveToNext()) {
+                    int infoId = Integer.parseInt(c.getString(c.getColumnIndex(INFO_ID)));
+                    String infoAuthor = c.getString(c.getColumnIndex(INFO_AUTHOR));
+                    String infoTitle = c.getString(c.getColumnIndex(INFO_TITLE));
+                    String infoContent = c.getString(c.getColumnIndex(INFO_CONTENT));
+                    String infoDate = c.getString(c.getColumnIndex(INFO_DATE));
+                    Info info = new Info(infoId, infoAuthor, infoTitle, infoContent, infoDate);
+                    infoExchangePosts.add(info);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return infoExchangePosts;
     }
 }
