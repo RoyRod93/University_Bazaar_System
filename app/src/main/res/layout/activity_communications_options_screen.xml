@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnRcvdMsgs"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/design_default_color_secondary_variant"
+            android:text="Received Messages"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnNewMsg"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/design_default_color_secondary_variant"
+        android:text="New Message"
+        android:textColor="#FFF"
+        android:textSize="12.5sp" />
+
+
+</RelativeLayout>
