@@ -33,7 +33,7 @@ public class CommunicationOptionsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("Create or Join a Club");
+        actionBar.setTitle("Communications");
 
         databaseHelper = new DatabaseHelper(this);
 
