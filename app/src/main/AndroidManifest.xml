@@ -25,6 +25,9 @@
         <activity android:name=".controller.ForgetPasswordActivity" />
         <activity android:name=".controller.WipActivity" />
         <activity android:name=".controller.ClubOptionsActivity" />
+        <activity android:name=".controller.CommunicationFormActivity" />
+        <activity android:name=".controller.MyMessagesRecycler" />
+        <activity android:name=".controller.CommunicationOptionsActivity" />
         <activity android:name=".controller.CreateClubFormActivity" />
         <activity android:name=".controller.SplashScreen">
             <intent-filter>

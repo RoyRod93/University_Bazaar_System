@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.team8.universitybazaar.model.Clubs;
+import com.team8.universitybazaar.model.Communication;
 import com.team8.universitybazaar.model.Info;
 import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.Transaction;
@@ -79,6 +80,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String INFO_CONTENT = "INFO_CONTENT";
     private static final String INFO_DATE = "INFO_DATE";
 
+    private static final String COMMUNICATION_TABLE = "communication_table";
+    private static final String COMMU_ID = "commu_id";
+    private static final String COMMU_FROM = "commu_from";
+    private static final String COMMU_TO = "commu_to";
+    private static final String COMMU_MSG = "commu_msg";
 
     public DatabaseHelper(Context context) {
 
@@ -156,6 +162,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + INFO_DATE + " TEXT, "
                 + " FOREIGN KEY ( " + INFO_AUTHOR + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
 
+        String createCommunicationTable = "CREATE TABLE " + COMMUNICATION_TABLE
+                + " ( " + COMMU_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COMMU_FROM + " TEXT, "
+                + COMMU_TO + " TEXT, "
+                + COMMU_MSG + " TEXT, "
+                + " FOREIGN KEY ( " + COMMU_TO + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ),"
+                + " FOREIGN KEY ( " + COMMU_FROM + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
+
         Log.i(TAG, "createSalesTable: " + createSalesTable);
 
         db.execSQL(createUserTable);
@@ -164,6 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createClubsTable);
         db.execSQL(createClubMembersTable);
         db.execSQL(createInfoExchangeTable);
+        db.execSQL(createCommunicationTable);
     }
 
     @Override
@@ -605,5 +620,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         return infoExchangePosts;
+    }
+
+    public void sendMessage(String from, String to,String message) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        /*long count = DatabaseUtils.queryNumEntries(db, USERS_TABLE);
+
+        if (count == 0) {
+
+            db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + USERS_TABLE + "'");
+        }*/
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COMMU_FROM, from);
+        contentValues.put(COMMU_TO, to);
+        contentValues.put(COMMU_MSG, message);
+        db.insert(COMMUNICATION_TABLE, null, contentValues);
+        db.close();
+    }
+    //getReceivedMessages
+
+    public List<Communication> getReceivedMessages(String userName) {
+
+        ArrayList<Communication> communicationArrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + COMMUNICATION_TABLE + " WHERE " + COMMU_TO + " = '" + userName + "'";
+        try {
+            Cursor cursor = db.rawQuery(query,null);
+            if (cursor.getCount() == 0)
+                return communicationArrayList;
+            else {
+                while (cursor.moveToNext()) {
+                    Communication commu = new Communication();
+                    commu.setCommuId(cursor.getInt(cursor.getColumnIndex(COMMU_ID)));
+                    commu.setCommuFrom(cursor.getString(cursor.getColumnIndex(COMMU_FROM)));
+                    commu.setCommuTo(cursor.getString(cursor.getColumnIndex(COMMU_TO)));
+                    commu.setCommuMsg(cursor.getString(cursor.getColumnIndex(COMMU_MSG)));
+
+                    communicationArrayList.add(commu);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return communicationArrayList;
     }
 }
