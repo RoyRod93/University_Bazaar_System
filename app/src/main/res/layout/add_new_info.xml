@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:minWidth="300dp">
+
+    <TextView
+        android:id="@+id/txtNewInfoExchange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        android:text="Add new Post"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etInfoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Post Title"
+        android:inputType="textCapSentences|textMultiLine"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/etInfoContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="top"
+        android:hint="Write your post here..."
+        android:inputType="textCapSentences|textMultiLine"
+        android:justificationMode="inter_word"
+        android:lines="5"
+        android:maxLength="140"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btnAddInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Post"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>
