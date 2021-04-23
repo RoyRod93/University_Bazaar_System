@@ -20,51 +20,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvFromName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="100"
-                android:layout_margin="10dp">
+                android:textStyle="bold"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="35"
-                    android:text="From: "
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tvFromName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="65"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="100"
-                android:layout_margin="10dp">
+                android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="35"
-                    android:text="Message:"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tvMessage"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="65"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
