@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.team8.universitybazaar.R;
 import com.team8.universitybazaar.dao.DatabaseHelper;
@@ -25,6 +26,8 @@ public class SalesItemRecycler extends AppCompatActivity {
     private User loggedInUser;
     private DatabaseHelper databaseHelper;
     private List<SaleItem> saleItemList;
+
+    private SalesAdapter adapter;
 
     ActivitySalesItemRecyclerBinding activitySalesItemRecyclerBinding;
 
@@ -49,7 +52,7 @@ public class SalesItemRecycler extends AppCompatActivity {
     private void loadData() {
 
         saleItemList = databaseHelper.getSaleItemList();
-        SalesAdapter adapter = new SalesAdapter(SalesItemRecycler.this, saleItemList, loggedInUser);
+        adapter = new SalesAdapter(SalesItemRecycler.this, saleItemList, loggedInUser);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         activitySalesItemRecyclerBinding.itemListRecyclerView.setLayoutManager(layoutManager);
         activitySalesItemRecyclerBinding.itemListRecyclerView.setAdapter(adapter);
@@ -57,7 +60,25 @@ public class SalesItemRecycler extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_sales_exchange, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.searchItems);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         return true;
     }
 

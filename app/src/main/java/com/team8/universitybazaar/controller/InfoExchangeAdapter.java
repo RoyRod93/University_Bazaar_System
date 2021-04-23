@@ -3,6 +3,8 @@ package com.team8.universitybazaar.controller;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,18 +13,23 @@ import com.team8.universitybazaar.databinding.InfoExchangeItemBinding;
 import com.team8.universitybazaar.model.Info;
 import com.team8.universitybazaar.model.User;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
-public class InfoExchangeAdapter extends RecyclerView.Adapter<InfoExchangeAdapter.ViewHolder> {
+public class InfoExchangeAdapter extends RecyclerView.Adapter<InfoExchangeAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
     private List<Info> infoList;
+    private List<Info> infoListFull;
     private User loggedInUser;
 
     public InfoExchangeAdapter(Context mContext, List<Info> infoList, User loggedInUser) {
         this.mContext = mContext;
         this.infoList = infoList;
         this.loggedInUser = loggedInUser;
+
+        infoListFull = new ArrayList<>(infoList);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,4 +66,42 @@ public class InfoExchangeAdapter extends RecyclerView.Adapter<InfoExchangeAdapte
     public int getItemCount() {
         return infoList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return postsFilter;
+    }
+
+    private Filter postsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Info> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(infoListFull);
+            } else {
+                String filteredPattern = constraint.toString().toLowerCase().trim();
+
+                for (Info item: infoListFull) {
+                    if (item.getTitle().toLowerCase().contains(filteredPattern) || item.getContent().toLowerCase().contains(filteredPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            infoList.clear();
+            infoList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

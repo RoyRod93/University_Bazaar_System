@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +15,15 @@ import com.team8.universitybazaar.databinding.SalesItemBinding;
 import com.team8.universitybazaar.model.SaleItem;
 import com.team8.universitybazaar.model.User;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
-public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> {
+public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
     private List<SaleItem> salesItems;
+    private List<SaleItem> salesItemsFull;
     private User loggedInUser;
 
     public SalesAdapter(Context mContext, List<SaleItem> salesItems, User loggedInUser) {
@@ -26,6 +31,8 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
         this.mContext = mContext;
         this.salesItems = salesItems;
         this.loggedInUser = loggedInUser;
+
+        salesItemsFull = new ArrayList<>(salesItems);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -87,4 +94,42 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
 
         return salesItems.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return itemsFilter;
+    }
+
+    private Filter itemsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<SaleItem> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(salesItemsFull);
+            } else {
+                String filteredPattern = constraint.toString().toLowerCase().trim();
+
+                for (SaleItem item: salesItemsFull) {
+                    if (item.getItemName().toLowerCase().contains(filteredPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            salesItems.clear();
+            salesItems.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

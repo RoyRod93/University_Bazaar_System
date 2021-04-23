@@ -17,11 +17,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.SearchView;
 
 import com.team8.universitybazaar.R;
 import com.team8.universitybazaar.dao.DatabaseHelper;
-import com.team8.universitybazaar.databinding.ActivityClubOptionsScreenBinding;
 import com.team8.universitybazaar.databinding.ActivityInfoExchangeBinding;
 import com.team8.universitybazaar.model.Info;
 import com.team8.universitybazaar.model.User;
@@ -78,6 +77,23 @@ public class InfoExchange extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_info_exchange, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.searchPosts);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                infoExchangeAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return true;
     }
 
