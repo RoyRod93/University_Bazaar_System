@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
+import com.team8.universitybazaar.model.Advertisement;
 import com.team8.universitybazaar.model.Clubs;
 import com.team8.universitybazaar.model.Communication;
 import com.team8.universitybazaar.model.Info;
@@ -15,8 +15,8 @@ import com.team8.universitybazaar.model.Transaction;
 import com.team8.universitybazaar.model.User;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Calendar;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -85,6 +85,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COMMU_FROM = "commu_from";
     private static final String COMMU_TO = "commu_to";
     private static final String COMMU_MSG = "commu_msg";
+
+    public static final String ADVERTISEMENT_TABLE = "advertisement_table";
+    public static final String ADVERTISEMENT_ID = "ID";
+    public static final String ADVERTISEMENT_TITLE = "TITLE";
+    public static final String ADVERTISEMENT_BODY_MSG = "BODY_MESSAGE";
+    public static final String ADVERTISEMENT_PUBLISH_DATE = "PUBLISH_DATE";
+    public static final String ADVERTISEMENT_EXPIRY_DATE = "EXPIRY_DATE";
+    public static final String ADVERTISEMENT_PUBLISHER = "PUBLISHER";
 
     public DatabaseHelper(Context context) {
 
@@ -170,7 +178,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " FOREIGN KEY ( " + COMMU_TO + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ),"
                 + " FOREIGN KEY ( " + COMMU_FROM + " ) REFERENCES " + USERS_TABLE + " ( " + USERNAME + " ) )";
 
-        Log.i(TAG, "createSalesTable: " + createSalesTable);
+        //Log.i(TAG, "createSalesTable: " + createSalesTable);
+
+        String createAdvertisementTable = "create table " + ADVERTISEMENT_TABLE
+                + "( " + ADVERTISEMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ADVERTISEMENT_TITLE + " TEXT, "
+                + ADVERTISEMENT_BODY_MSG + " TEXT, "
+                + ADVERTISEMENT_PUBLISH_DATE + " TEXT, "
+                + ADVERTISEMENT_EXPIRY_DATE + " TEXT, "
+                + ADVERTISEMENT_PUBLISHER + " TEXT )";
 
         db.execSQL(createUserTable);
         db.execSQL(createSalesTable);
@@ -179,6 +195,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createClubMembersTable);
         db.execSQL(createInfoExchangeTable);
         db.execSQL(createCommunicationTable);
+        db.execSQL(createAdvertisementTable);
     }
 
     @Override
@@ -189,6 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TRANSACTION_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CLUB_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CLUB_MEMBERS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ADVERTISEMENT_TABLE);
 
         onCreate(db);
     }
@@ -474,34 +492,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Clubs> getClubsList() {
-
-        ArrayList<Clubs> clubsArrayList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + CLUB_TABLE; //+ " WHERE " + USERNAME + " = '" + userName + "'";
-        try {
-            Cursor cursor = db.rawQuery(query, null);
-            if (cursor.getCount() == 0)
-                return clubsArrayList;
-            else {
-                while (cursor.moveToNext()) {
-                    Clubs clubs = new Clubs();
-                    clubs.setClubId(cursor.getInt(cursor.getColumnIndex(CLUB_ID)));
-                    clubs.setClubName(cursor.getString(cursor.getColumnIndex(CLUB_NAME)));
-                    clubs.setClubType(cursor.getString(cursor.getColumnIndex(CLUB_TYPE)));
-                    clubs.setClubDescription(cursor.getString(cursor.getColumnIndex(CLUB_DESCRIPTION)));
-                    clubs.setClubCreationDate(cursor.getString(cursor.getColumnIndex(CLUB_CREATION_DATE)));
-                    clubs.setClubOwner(cursor.getString(cursor.getColumnIndex(CLUB_OWNER_USERNAME)));
-                    clubs.setClubMemberCapacity(cursor.getInt(cursor.getColumnIndex(CLUB_MEMBER_CAPACITY)));
-                    clubsArrayList.add(clubs);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return clubsArrayList;
-    }
-
     public List<Clubs> getAvailableClubsList(String userName) {
 
         ArrayList<Clubs> clubsArrayList = new ArrayList<>();
@@ -666,5 +656,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         return communicationArrayList;
+    }
+
+    public void createAdvertisement(Advertisement advertisement) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ADVERTISEMENT_TITLE, advertisement.getAdvTitle());
+        contentValues.put(ADVERTISEMENT_BODY_MSG, advertisement.getAdvBodyMsg());
+        contentValues.put(ADVERTISEMENT_PUBLISH_DATE, advertisement.getAdvPublishDate());
+        contentValues.put(ADVERTISEMENT_EXPIRY_DATE, advertisement.getAdvExpiryDate());
+        contentValues.put(ADVERTISEMENT_PUBLISHER, advertisement.getAdvPublisher());
+
+        db.insert(ADVERTISEMENT_TABLE, null, contentValues);
+        db.close();
+    }
+
+    public List<Advertisement> getAdvertisementsList() {
+
+        ArrayList<Advertisement> advertisementArrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + ADVERTISEMENT_TABLE;
+        try {
+            Cursor cursor = db.rawQuery(query, null);
+            if (cursor.getCount() == 0)
+                return advertisementArrayList;
+            else {
+                while (cursor.moveToNext()) {
+                    Advertisement advertisement = new Advertisement();
+                    advertisement.setAdvTitle(cursor.getString(cursor.getColumnIndex(ADVERTISEMENT_TITLE)));
+                    advertisement.setAdvBodyMsg(cursor.getString(cursor.getColumnIndex(ADVERTISEMENT_BODY_MSG)));
+                    advertisement.setAdvPublishDate(cursor.getString(cursor.getColumnIndex(ADVERTISEMENT_PUBLISH_DATE)));
+                    advertisement.setAdvExpiryDate(cursor.getString(cursor.getColumnIndex(ADVERTISEMENT_EXPIRY_DATE)));
+                    advertisement.setAdvPublisher(cursor.getString(cursor.getColumnIndex(ADVERTISEMENT_PUBLISHER)));
+
+                    advertisementArrayList.add(advertisement);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return advertisementArrayList;
     }
 }
