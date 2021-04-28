@@ -1,101 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    android:padding="15dp"
+    android:padding="5dp"
     tools:context=".controller.MainActivity">
 
     <TextView
+        android:id="@+id/menuTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:fontFamily="@font/arizonia"
         android:text="Main Menu"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="5dp">
+
+        <!--    <GridLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_below="@id/menuTV"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:padding="5dp"-->
+        <!--        android:columnCount="2"-->
+
+        <!--        android:orientation="horizontal">-->
 
         <Button
             android:id="@+id/btnSalesExchangeForm"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_weight="47.5"
             android:background="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_listing_form"
             android:text="Listing Form"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
 
         <Button
             android:id="@+id/btnSalesExchange"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="47.5"
             android:background="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_sales"
             android:text="Sales/Exchange"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
 
         <Button
             android:id="@+id/btnPurchaseHistory"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="47.5"
             android:background="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_purchase_history"
             android:text="Purchase History"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
 
         <Button
             android:id="@+id/btnClubs"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="47.5"
             android:background="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_club"
             android:text="Clubs"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
 
         <Button
             android:id="@+id/btnInfoExchange"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="47.5"
             android:background="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_info_exchange"
             android:text="Info Exchange"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
 
         <Button
             android:id="@+id/btnCommunication"
-            android:layout_width="200dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="47.5"
             android:background="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_commu"
             android:text="Communication"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
+
+        <Button
+            android:id="@+id/btnAdvertisementForm"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_weight="47.5"
+            android:background="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_advertisement"
+            android:text="Advertisements"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
+
+        <!--    </GridLayout>-->
 
     </LinearLayout>
 
