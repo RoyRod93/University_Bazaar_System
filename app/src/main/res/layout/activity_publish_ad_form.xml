@@ -57,12 +57,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:clickable="true"
             android:background="@drawable/edittext_border"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
+            android:hint="Date Format: mm/dd/yy"
             android:padding="15dp" />
+        <!--            android:cursorVisible="false"-->
+        <!--            android:focusable="false"-->
+        <!--            android:focusableInTouchMode="false"-->
 
 
         <Button

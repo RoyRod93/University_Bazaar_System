@@ -1,6 +1,5 @@
 package com.team8.universitybazaar.controller;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,9 +20,7 @@ import com.team8.universitybazaar.misc.Validations;
 import com.team8.universitybazaar.model.Advertisement;
 import com.team8.universitybazaar.model.User;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class PublishNewAdActivity extends AppCompatActivity {
 
@@ -63,6 +59,16 @@ public class PublishNewAdActivity extends AppCompatActivity {
             startActivity(i);
         }
 
+//        final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                myCalendar.set(Calendar.YEAR, year);
+//                myCalendar.set(Calendar.MONTH, month);
+//                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+////                    updateDate();
+//            }
+//        };
+
         activityPublishAdFormBinding.btnPublishAd.setOnClickListener(v -> {
 
             final Advertisement advertisement = new Advertisement();
@@ -71,35 +77,22 @@ public class PublishNewAdActivity extends AppCompatActivity {
             advertisement.setAdvBodyMsg(activityPublishAdFormBinding.etAdBodyMsg.getText().toString().trim());
             advertisement.setAdvPublisher(activityPublishAdFormBinding.etAdPublisher.getText().toString().trim());
             advertisement.setAdvPublishDate(Calendar.getInstance().getTime().toString());
+            advertisement.setAdvExpiryDate(activityPublishAdFormBinding.etAdExpiryDate.getText().toString().trim());
 
+//            String myFormat = "MM/dd/yy";
+//            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
 
-            final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, month);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//                    updateDate();
-                }
-            };
+//            activityPublishAdFormBinding.etAdExpiryDate.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    new DatePickerDialog(PublishNewAdActivity.this, dateSetListener,
+//                            myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+//                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//                }
+//            });
 
-            String myFormat = "MM/dd/yy";
-            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
+//            activityPublishAdFormBinding.etAdExpiryDate.setText(sdf.format(myCalendar.getTime()));
 
-            activityPublishAdFormBinding.etAdExpiryDate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new DatePickerDialog(PublishNewAdActivity.this, dateSetListener,
-                            myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            });
-
-            activityPublishAdFormBinding.etAdExpiryDate.setText(sdf.format(myCalendar.getTime()));
-            advertisement.setAdvExpiryDate(activityPublishAdFormBinding.etAdExpiryDate.getText().toString());
-
-
-            String ownerUsername = loggedInUser.getUserName();
 
             if (isValid()) {
                 databaseHelper.createAdvertisement(advertisement);
