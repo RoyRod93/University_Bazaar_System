@@ -27,38 +27,38 @@
             android:id="@+id/btnCreateClub"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_create_new_club"
             android:layout_gravity="center"
-            android:background="@color/design_default_color_secondary_variant"
+            android:background="@drawable/button_rounded_corners"
+            android:drawableLeft="@drawable/ic_create_new_club"
             android:text="Create New Club"
             android:textColor="#FFF"
-        android:textSize="12.5sp" />
+            android:textSize="12.5sp" />
 
-    <Button
-        android:id="@+id/btnJoinClub"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnCreateClub"
-        android:drawableLeft="@drawable/ic_join_available_club"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@color/design_default_color_secondary_variant"
-        android:text="Join Available Club"
-        android:textColor="#FFF"
-        android:textSize="12.5sp" />
+        <Button
+            android:id="@+id/btnJoinClub"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnCreateClub"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_rounded_corners"
+            android:drawableLeft="@drawable/ic_join_available_club"
+            android:text="Join Available Club"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
 
-    <Button
-        android:id="@+id/btnJoinedClub"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/btnCreateClub"
-        android:layout_gravity="center"
-        android:drawableLeft="@drawable/ic_joined_club"
-        android:background="@color/design_default_color_secondary_variant"
-        android:text="Joined Club"
-        android:textColor="#FFF"
-        android:textSize="12.5sp" />
+        <Button
+            android:id="@+id/btnJoinedClub"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnCreateClub"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_rounded_corners"
+            android:drawableLeft="@drawable/ic_joined_club"
+            android:text="Joined Club"
+            android:textColor="#FFF"
+            android:textSize="12.5sp" />
 
     </LinearLayout>
 
