@@ -1,7 +1,6 @@
 package com.team8.universitybazaar.controller;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.team8.universitybazaar.dao.DatabaseHelper;
 import com.team8.universitybazaar.databinding.AdvertisementItemBinding;
-import com.team8.universitybazaar.databinding.ClubsListBinding;
 import com.team8.universitybazaar.model.Advertisement;
-import com.team8.universitybazaar.model.Clubs;
 import com.team8.universitybazaar.model.User;
 
 import java.util.List;
