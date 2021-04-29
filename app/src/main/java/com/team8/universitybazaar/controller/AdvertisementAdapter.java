@@ -54,11 +54,15 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
         String tvAdvTitle = advertisementList.get(position).getAdvTitle();
         String tvAdvExpiry = advertisementList.get(position).getAdvExpiryDate();
         String tvAdvPublisher = advertisementList.get(position).getAdvPublisher();
+        String tvAdvDescription = advertisementList.get(position).getAdvBodyMsg();
+        String tvAdvPublishedDate = advertisementList.get(position).getAdvPublishDate();
 
 
         holder.advertisementItemBinding.tvAdvTitle.setText(tvAdvTitle);
         holder.advertisementItemBinding.tvAdvExpiry.setText(tvAdvExpiry);
         holder.advertisementItemBinding.tvAdvPublisher.setText(tvAdvPublisher);
+        holder.advertisementItemBinding.tvAdvDescription.setText(tvAdvDescription);
+        holder.advertisementItemBinding.tvAdvPublishedDate.setText(tvAdvPublishedDate);
 
     }
 

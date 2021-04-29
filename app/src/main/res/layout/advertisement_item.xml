@@ -7,6 +7,8 @@
     android:padding="10dp"
     android:layout_margin="5dp">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,11 +56,57 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
+                    android:text="Description: "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvAdvDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
                     android:text="Publisher:"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tvAdvPublisher"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="65"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
+                    android:text="Published Date: "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvAdvPublishedDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="65"
