@@ -84,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        activityMainBinding.btnAdvertisements.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, AdvertisementOptionsActivity.class);
+            i.putExtra("logged-user", loggedInUser);
+            startActivity(i);
+        });
+
 
 //        activityMainBinding.mainTextView.setText("Welcome, " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
     }

@@ -29,6 +29,8 @@
         <activity android:name=".controller.MyMessagesRecycler" />
         <activity android:name=".controller.CommunicationOptionsActivity" />
         <activity android:name=".controller.CreateClubFormActivity" />
+        <activity android:name=".controller.AdvertisementOptionsActivity" />
+        <activity android:name=".controller.PublishNewAdActivity" />
         <activity android:name=".controller.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

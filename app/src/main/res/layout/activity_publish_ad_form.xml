@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/etAdTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_border"
+            android:hint="Advertisement Title"
+            android:padding="15dp" />
+
+
+        <EditText
+            android:id="@+id/etAdBodyMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edittext_border"
+            android:gravity="top"
+            android:hint="Advertisement Description"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/etAdPublisher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_border"
+            android:hint="Publisher Name"
+            android:padding="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Select Advertisement Expiry Date:" />
+
+
+        <EditText
+            android:id="@+id/etAdExpiryDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_border"
+            android:focusable="false"
+            android:inputType="date"
+            android:padding="15dp" />
+
+
+        <Button
+            android:id="@+id/btnPublishAd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_rounded_corners"
+            android:drawableLeft="@drawable/ic_pub_new_ad"
+            android:text="Publish Advertisement" />
+
+    </LinearLayout>
+
+</ScrollView>
