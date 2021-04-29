@@ -57,7 +57,7 @@ public class AdvertisementOptionsActivity extends AppCompatActivity {
         });
 
         activityAdvertisementOptionsScreenBinding.btnViewPublishedAdv.setOnClickListener(v -> {
-            Intent i = new Intent(AdvertisementOptionsActivity.this, ClubItemRecycler.class);
+            Intent i = new Intent(AdvertisementOptionsActivity.this, AdvertisementItemRecycler.class);
             i.putExtra("logged-user", loggedInUser);
             startActivity(i);
         });
