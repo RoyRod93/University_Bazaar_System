@@ -7,58 +7,46 @@
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/clubIv"
+        android:id="@+id/advIv"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_margin="20dp"
-        android:background="@drawable/ic_club" />
+        android:background="@drawable/ic_advertisement" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/clubIv"
+        android:layout_below="@id/advIv"
         android:layout_centerVertical="true"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btnCreateClub"
-            android:layout_width="220dp"
+            android:id="@+id/btnCreateAdv"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/button_rounded_corners"
-            android:drawableLeft="@drawable/ic_create_new_club"
-            android:text="Create New Club"
+            android:drawableLeft="@drawable/ic_pub_new_ad"
+            android:text="Publish New Ad"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
 
         <Button
-            android:id="@+id/btnJoinClub"
-            android:layout_width="220dp"
+            android:id="@+id/btnViewPublishedAdv"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnCreateClub"
+            android:layout_below="@id/btnCreateAdv"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/button_rounded_corners"
-            android:drawableLeft="@drawable/ic_join_available_club"
-            android:text="Join Available Club"
+            android:drawableLeft="@drawable/ic_view_published_ads"
+            android:text="View Published Ads"
             android:textColor="#FFF"
             android:textSize="12.5sp" />
 
-        <Button
-            android:id="@+id/btnJoinedClub"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btnCreateClub"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_rounded_corners"
-            android:drawableLeft="@drawable/ic_joined_club"
-            android:text="Joined Club"
-            android:textColor="#FFF"
-            android:textSize="12.5sp" />
 
     </LinearLayout>
 

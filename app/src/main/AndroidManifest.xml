@@ -14,6 +14,7 @@
         <activity android:name=".controller.PaymentActivity" />
         <activity android:name=".controller.SalesItemRecycler" />
         <activity android:name=".controller.ClubItemRecycler" />
+        <activity android:name=".controller.AdvertisementItemRecycler" />
         <activity android:name=".controller.JoinedClubItemRecycler" />
         <activity android:name=".controller.ItemDetailsScreenActivity" />
         <activity android:name=".controller.SalesExchangeForm" />
@@ -29,6 +30,8 @@
         <activity android:name=".controller.MyMessagesRecycler" />
         <activity android:name=".controller.CommunicationOptionsActivity" />
         <activity android:name=".controller.CreateClubFormActivity" />
+        <activity android:name=".controller.AdvertisementOptionsActivity" />
+        <activity android:name=".controller.PublishNewAdActivity" />
         <activity android:name=".controller.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
